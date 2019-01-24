@@ -20,14 +20,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button invBtnAddToInventory;
     @FXML
-    private TextField invTxtProdName;
-    @FXML
-    private TextField invTxtProdCost;
-    @FXML
-    private TextField invTxtProdPrice;
-    @FXML
-    private TextField invTxtProdQty;
-    @FXML
     private TableColumn<?, ?> invColProdUID;
     @FXML
     private TableColumn<?, ?> invColProdName;
@@ -41,6 +33,8 @@ public class FXMLDocumentController implements Initializable {
     private Button invBtnDelete;
     @FXML
     private Button invBtnModify;
+    @FXML
+    private Button invBtnModify1;
     
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
