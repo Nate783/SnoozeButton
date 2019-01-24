@@ -6,8 +6,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -34,50 +37,70 @@
       </MenuBar>
       <TabPane layoutY="25.0" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="150.0" tabMaxWidth="150.0" tabMinHeight="150.0" tabMinWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <tabs>
-          <Tab text="Untitled Tab 1">
+          <Tab text="Inventory Management">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="889.0" layoutY="11.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="172.0" text="Add to Inventory">
+                        <Button fx:id="invBtnAddToInventory" layoutX="899.0" layoutY="719.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="172.0" text="Add to Inventory">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Text layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Item to Inventory:" wrappingWidth="209.13671875">
+                        <Text layoutX="36.0" layoutY="746.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add NEW Item to Inventory:" wrappingWidth="275.13671875">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <TextField layoutX="200.0" layoutY="10.0" promptText="Insert your Item Name here." text="Item name">
+                        <TextField fx:id="invTxtProdName" layoutX="275.0" layoutY="719.0" prefHeight="39.0" prefWidth="279.0" promptText="Item Name">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="447.0" layoutY="11.0" prefHeight="39.0" prefWidth="72.0" promptText="Please enter the cost for YOU to order the item." text="Cost">
+                        <TextField fx:id="invTxtProdCost" layoutX="577.0" layoutY="719.0" prefHeight="39.0" prefWidth="72.0" promptText="Cost">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="544.0" layoutY="10.0" prefHeight="39.0" prefWidth="72.0" promptText="Enter selling price" text="Price">
+                        <TextField fx:id="invTxtProdPrice" layoutX="679.0" layoutY="719.0" prefHeight="39.0" prefWidth="72.0" promptText="Price">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Text layoutX="433.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="17.13671875">
+                        <Text layoutX="667.0" layoutY="746.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="17.13671875">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="530.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="17.13671875">
+                        <Text layoutX="566.0" layoutY="746.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="17.13671875">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <TextField layoutX="662.0" layoutY="10.0" prefHeight="39.0" prefWidth="173.0" promptText="Enter selling price" text="Quantity On Hand">
+                        <TextField fx:id="invTxtProdQty" layoutX="770.0" layoutY="719.0" prefHeight="39.0" prefWidth="123.0" promptText="Quantity">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <TableView layoutX="17.0" layoutY="50.0" prefHeight="570.0" prefWidth="1086.0">
+                          <columns>
+                            <TableColumn fx:id="invColProdUID" prefWidth="85.0" text="Product ID" />
+                            <TableColumn fx:id="invColProdName" prefWidth="435.0" text="Product Name" />
+                              <TableColumn fx:id="invColProdCost" prefWidth="150.0" text="Cost" />
+                              <TableColumn fx:id="invColProdPrice" prefWidth="150.0" text="Sales Price" />
+                              <TableColumn fx:id="invColProdQty" prefWidth="250.0" text="Quantity on Hand" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="invBtnDelete" layoutX="17.0" layoutY="638.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="172.0" text="Delete Selected Product">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="invBtnModify" layoutX="931.0" layoutY="638.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="172.0" text="Modify Selected Product">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Line endX="922.0" layoutX="141.0" layoutY="701.0" startX="-100.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
