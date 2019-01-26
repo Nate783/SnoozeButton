@@ -40,7 +40,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="17.0" layoutY="82.0" prefHeight="614.0" prefWidth="1162.0">
+                        <TableView fx:id="invTable" layoutX="17.0" layoutY="82.0" prefHeight="614.0" prefWidth="1162.0">
                           <columns>
                             <TableColumn fx:id="invColProdUID" prefWidth="85.0" text="Product ID" />
                             <TableColumn fx:id="invColProdName" prefWidth="435.0" text="Product Name" />
@@ -64,7 +64,7 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="invBtnModify1" layoutX="1070.0" layoutY="40.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="106.0" text="Set Filters" />
+                        <Button fx:id="invBtnFilters" layoutX="1070.0" layoutY="40.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="106.0" text="Set Filters" />
                      </children></AnchorPane>
             </content>
                <graphic>
