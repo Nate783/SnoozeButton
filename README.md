@@ -9,5 +9,5 @@ Sophomore Project
 * Wakhiel Moshon
 
 ## UI Prototype
-![UI Prototype](https://media.discordapp.net/attachments/532629869704511500/538097957510316038/unknown.png)
+![UI Prototype](https://github.com/Nate783/SnoozeButton/blob/master/src/tracker/images/ui.PNG)
 
