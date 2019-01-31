@@ -41,14 +41,34 @@ public class FXMLDocumentController implements Initializable {
         invTable.setItems(getProducts());
     }    
     
-    private void handleButtonAction(ActionEvent event) {
+    @FXML
+    private void handleAddClick(ActionEvent event) {
+        //todo
+    }
+    
+    @FXML
+    private void handleModifyClick(ActionEvent event) {
+        //todo
+    }
+    
+    @FXML
+    private void handleDeleteClick(ActionEvent event) {
+        //todo
+    }
+    
+    @FXML
+    private void handleFilterClick(ActionEvent event) {
         //todo
     }
     
     public ObservableList<Product> getProducts() {
+        // setup obsefvable list
         ObservableList<Product> products = FXCollections.observableArrayList();
+        // to do - read from sql and loop through list
+        // for testing, adds one item manually
         products.add(new Product(1001,"test product name", 3.5, 9.49, 125));
         
+        // return newly created observable list
         return products;
     }
 }

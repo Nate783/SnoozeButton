@@ -49,22 +49,22 @@
                               <TableColumn fx:id="invColProdQty" prefWidth="325.0" text="Quantity on Hand" />
                           </columns>
                         </TableView>
-                        <Button fx:id="invBtnDelete" layoutX="1000.0" layoutY="710.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="179.0" text="Delete Selected Products">
+                        <Button fx:id="invBtnDelete" layoutX="1000.0" layoutY="710.0" mnemonicParsing="false" onAction="#handleDeleteClick" prefHeight="39.0" prefWidth="179.0" text="Delete Selected Products">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="invBtnModify" layoutX="513.0" layoutY="710.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="172.0" text="Modify Selected Product">
+                        <Button fx:id="invBtnModify" layoutX="513.0" layoutY="710.0" mnemonicParsing="false" onAction="#handleModifyClick" prefHeight="39.0" prefWidth="172.0" text="Modify Selected Product">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="invBtnAddToInventory" layoutX="17.0" layoutY="710.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="172.0" text="Add New Product">
+                        <Button fx:id="invBtnAddToInventory" layoutX="17.0" layoutY="710.0" mnemonicParsing="false" onAction="#handleAddClick" prefHeight="39.0" prefWidth="172.0" text="Add New Product">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="invBtnFilters" layoutX="1070.0" layoutY="40.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="106.0" text="Set Filters" />
+                        <Button fx:id="invBtnFilters" layoutX="1070.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleFilterClick" prefHeight="33.0" prefWidth="106.0" text="Set Filters" />
                      </children></AnchorPane>
             </content>
                <graphic>
