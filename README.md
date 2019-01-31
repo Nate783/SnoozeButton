@@ -8,9 +8,6 @@ Sophomore Project
 * Nicholas Attisha
 * Wakhiel Moshon
 
-## UI Prototype
-![UI Prototype](https://github.com/Nate783/SnoozeButton/blob/master/src/tracker/images/ui.PNG)
-
 ## SQL Examples
 Connection string: `jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull`
 
