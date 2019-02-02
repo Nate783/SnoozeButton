@@ -14,7 +14,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class Tracker extends Application {
     
@@ -155,4 +158,35 @@ public class Tracker extends Application {
             }
     }
     
+    public boolean AddInventoryController() {
+    try {
+        // Load the fxml file and create a new stage for the popup dialog.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Tracker.class.getResource("AddInventory.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+
+        // Create the dialog Stage.
+        Stage addStage = new Stage();
+        addStage.setTitle("Add Inventory");
+        addStage.initModality(Modality.WINDOW_MODAL);
+        Window primaryStage = null;
+        addStage.initOwner(primaryStage);
+        Scene scene = new Scene(page);
+        addStage.setScene(scene);
+
+        // Set the person into the controller.
+        AddInventoryController controller;
+        controller = loader.getController();
+        controller.setAddStage(addStage);
+        //controller.setPerson(person);
+
+        // Show the dialog and wait until the user closes it
+        addStage.showAndWait();
+
+        return controller.handleAddBtn();
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+  }
 }

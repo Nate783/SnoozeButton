@@ -19,7 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import static tracker.Tracker.saveProdToDatabase;
+import static tracker.Tracker.*;
 
 public class FXMLDocumentController implements Initializable {
     
@@ -49,19 +49,19 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleAddClick(ActionEvent event) {
         //Test
-        System.out.print("asd");
-        try {
-            FXMLLoader.load(getClass().getResource("AddInventory.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            
-            stage.setTitle("Add Inventory");
-            stage.setScene(new Scene(root1));
-            stage.show();
-            
-        } catch (Exception e) {
-            System.out.println("Cant load new window");
-        }
+//        System.out.print("asd");
+//        try {
+//            FXMLLoader.load(getClass().getResource("AddInventory.fxml"));
+//            Parent root1 = (Parent) fxmlLoader.load();
+//            Stage stage = new Stage();
+//            
+//            stage.setTitle("Add Inventory");
+//            stage.setScene(new Scene(root1));
+//            stage.show();
+//            
+//        } catch (Exception e) {
+//            System.out.println("Cant load new window");
+//        }
         
     }
     

@@ -9,8 +9,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class AddInventoryController {
+
+    static void setTitle(String edit_Person) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @FXML
     private ResourceBundle resources;
@@ -23,8 +28,11 @@ public class AddInventoryController {
 
     @FXML
     private Button invBtnCancel;
+    
+    private Stage addStage;
+    private boolean handleAddBtn;
 
-    @FXML
+    
     void handleAddBtn(ActionEvent event) {
 
     }
@@ -40,4 +48,18 @@ public class AddInventoryController {
         assert invBtnCancel != null : "fx:id=\"invBtnCancel\" was not injected: check your FXML file 'AddInventory.fxml'.";
 
     }
+    
+
+    public boolean handleAddBtn() {
+       return handleAddBtn;
+    }
+    
+    public void setAddStage(Stage addStage){
+       this.addStage = addStage; 
+    }
+
+
 }
+
+
+
