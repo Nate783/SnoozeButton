@@ -13,10 +13,6 @@ import javafx.stage.Stage;
 
 public class AddInventoryController {
 
-    static void setTitle(String edit_Person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @FXML
     private ResourceBundle resources;
 

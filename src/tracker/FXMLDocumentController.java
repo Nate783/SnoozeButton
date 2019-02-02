@@ -7,6 +7,8 @@ package tracker;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,21 +50,13 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleAddClick(ActionEvent event) {
-        //Test
-//        System.out.print("asd");
-//        try {
-//            FXMLLoader.load(getClass().getResource("AddInventory.fxml"));
-//            Parent root1 = (Parent) fxmlLoader.load();
-//            Stage stage = new Stage();
-//            
-//            stage.setTitle("Add Inventory");
-//            stage.setScene(new Scene(root1));
-//            stage.show();
-//            
-//        } catch (Exception e) {
-//            System.out.println("Cant load new window");
-//        }
-        
+        try {
+            AddInventoryController();
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            invTable.setItems(getProducts());
+        }
     }
     
     @FXML
