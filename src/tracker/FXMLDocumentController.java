@@ -11,7 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -45,7 +48,21 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleAddClick(ActionEvent event) {
-        //todo
+        //Test
+        System.out.print("asd");
+        try {
+            FXMLLoader.load(getClass().getResource("AddInventory.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            
+            stage.setTitle("Add Inventory");
+            stage.setScene(new Scene(root1));
+            stage.show();
+            
+        } catch (Exception e) {
+            System.out.println("Cant load new window");
+        }
+        
     }
     
     @FXML
