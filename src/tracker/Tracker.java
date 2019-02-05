@@ -187,4 +187,12 @@ public class Tracker extends Application {
             e.printStackTrace();
         }
   }
+    public static void Delete() throws Exception {
+        try {
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+  }
 }
