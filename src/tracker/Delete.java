@@ -40,9 +40,7 @@ public class Delete {
     }
     @FXML
     void initialize() {
-        assert invDel != null : "fx:id=\"invBtnAdd\" was not injected: check your FXML file 'AddInventory.fxml'.";
-        assert invDelCancel != null : "fx:id=\"invBtnCancel\" was not injected: check your FXML file 'AddInventory.fxml'.";
-
+       
     }
     
 
