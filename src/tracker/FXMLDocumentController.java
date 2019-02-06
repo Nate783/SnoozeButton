@@ -80,6 +80,8 @@ public class FXMLDocumentController implements Initializable {
         // to do - read from sql and loop through list
         // for testing, adds one item manually
         products.add(new Product(1001,"test product name", 3.5, 9.49, 125));
+        products.add(new Product(1002,"ztest product name", 2, 20, 30));
+        products.add(new Product(1003,"atest product name", 1, 15, 600));
         
         // return newly created observable list
         return products;
