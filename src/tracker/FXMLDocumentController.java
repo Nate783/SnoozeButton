@@ -83,21 +83,29 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public ObservableList<Product> getProducts() throws SQLException {
-        // setup obsefvable list
+        // setup observable list
         ObservableList<Product> products = FXCollections.observableArrayList();
-        // to do - read from sql and loop through list
-         Connection conn = null;
-         Statement statement = null;
-         ResultSet resultSet = null;
+        
+        // read from sql and loop through list
+        
+        // setup the SQL variables
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        
+        
         try{
-           conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull");
+            // connect to the DB
+            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
            
-           statement = conn.createStatement();
-           resultSet = statement.executeQuery("SELECT * FROM products");
+           
+            // create the sql statement and execute it
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM products");
            
    
-              while (resultSet.next()) {
-                products.add(new Product(
+            // loop through the results and create products for each line
+            while (resultSet.next()) {products.add(new Product(
                         resultSet.getInt("ID"), 
                         resultSet.getString("Name"), 
                         resultSet.getDouble("Cost"), 
@@ -105,12 +113,13 @@ public class FXMLDocumentController implements Initializable {
                         resultSet.getInt("Quantity")
                         )
                 );
-           }
+            }
         }
         catch(Exception e){
             System.err.println(e.getMessage());
         }
-        finally{
+        finally {
+            // clean up
             if(conn!= null){
                 conn.close();
             }
@@ -119,13 +128,8 @@ public class FXMLDocumentController implements Initializable {
             }
             if(resultSet!= null){
                 resultSet.close();
-            }
-           
+            }  
         }
-        // for testing, adds one item manually
-        products.add(new Product(1001,"test product name", 3.5, 9.49, 125));
-        products.add(new Product(1002,"ztest product name", 2, 20, 30));
-        products.add(new Product(1003,"atest product name", 1, 15, 600));
         
         // return newly created observable list
         return products;

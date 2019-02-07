@@ -70,12 +70,12 @@
                   <Insets left="30.0" />
                </padding>
             </Label>
-            <TextField prefHeight="17.0" prefWidth="71.0" GridPane.columnIndex="2" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Button fx:id="invBtnCancel" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="27.0" prefWidth="82.0" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextField fx:id="labelID" editable="false" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </children>
