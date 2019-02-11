@@ -28,11 +28,46 @@ public class AddInventoryController {
     
     @FXML
     private TextField labelID;
+    
+  
+    @FXML
+    private TextField productName;
+    
+    @FXML
+    private TextField cost;
+    
+    @FXML
+    private TextField quantity;
+    
+    @FXML
+    private TextField salesPrice;
 
     
     @FXML
     void handleAddBtn(ActionEvent event) throws SQLException {
-        // to do
+        // Product(int id, String name, double cost, double price, int qtyOnHand)
+        
+        Connection conn = null;
+        
+        
+        
+        String id = labelID.getText();
+        String name = productName.getText();
+        String cos = cost.getText();
+        String quant = quantity.getText(); 
+        String salePrice = salesPrice.getText();
+        
+        
+        
+        System.out.print(id + " " + name + " " + cos + " " + quant + " " + salePrice);
+        
+        
+        
+        
+        // connect to the DB
+        conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+        
+        
     }
 
     @FXML
