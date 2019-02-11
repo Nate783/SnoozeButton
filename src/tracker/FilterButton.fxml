@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="297.9998779296875" prefWidth="343.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tracker.FilterButtonController">
+  <children>
+    <AnchorPane blendMode="SRC_OVER" mouseTransparent="false" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <CheckBox fx:id="NameBox" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="Name" />
+        <CheckBox fx:id="CostBox" layoutX="50.0" layoutY="80.0" mnemonicParsing="false" text="Cost" />
+        <CheckBox fx:id="PriceBox" layoutX="50.0" layoutY="110.0" mnemonicParsing="false" text="Price" />
+        <CheckBox fx:id="QuantityBox" layoutX="50.0" layoutY="140.0" mnemonicParsing="false" text="Quantity" />
+        <Button layoutX="50.0" layoutY="170.0" minHeight="15.999908447265625" minWidth="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+        <ChoiceBox fx:id="NameChoice" layoutX="135.0" layoutY="50.0" prefWidth="74.0">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Contains" />
+            </FXCollections>
+          </items>
+        </ChoiceBox>
+        <Label layoutX="50.0" layoutY="28.0" text="Filter By" />
+        <ChoiceBox fx:id="CostChoice" layoutX="135.0" layoutY="80.0">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Above" />
+              <String fx:value="Below" />
+              <String fx:value="Equals" />
+            </FXCollections>
+          </items>
+        </ChoiceBox>
+        <ChoiceBox fx:id="PriceChoice" layoutX="135.0" layoutY="110.0">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Above" />
+              <String fx:value="Below" />
+              <String fx:value="Equals" />
+            </FXCollections>
+          </items>
+        </ChoiceBox>
+        <ChoiceBox fx:id="QuantityChoice" layoutX="135.0" layoutY="140.0">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Above" />
+              <String fx:value="Below" />
+              <String fx:value="Equals" />
+            </FXCollections>
+          </items>
+        </ChoiceBox>
+        <TextField fx:id="NameText" layoutX="227.0" layoutY="50.0" prefWidth="82.0" promptText="Name" />
+        <TextField fx:id="CostText" layoutX="227.0" layoutY="80.0" prefWidth="82.0" promptText="\$00.00" />
+        <TextField fx:id="PriceText" layoutX="227.0" layoutY="110.0" prefWidth="82.0" promptText="\$00.00" />
+        <TextField fx:id="QuantityText" layoutX="227.0" layoutY="140.0" prefWidth="82.0" promptText="0" />
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>
