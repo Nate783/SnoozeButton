@@ -195,22 +195,22 @@ public class Tracker extends Application {
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
-            Stage addStage = new Stage();
-            addStage.setTitle("Delete Item");
-            addStage.initModality(Modality.WINDOW_MODAL);
+            Stage delStage = new Stage();
+            delStage.setTitle("Delete Item");
+            delStage.initModality(Modality.WINDOW_MODAL);
             Window primaryStage = null;
-            addStage.initOwner(primaryStage);
+            delStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
-            addStage.setScene(scene);
+            delStage.setScene(scene);
 
             // Set the person into the controller.
             Delete delcontroller;
             delcontroller = loader.getController();
-            delcontroller.setDelStage(addStage);
+            delcontroller.setDelStage(delStage);
             //controller.setPerson(person);
 
             // Show the dialog and wait until the user closes it
-            addStage.showAndWait();
+            delStage.showAndWait();
 
         } catch (Exception e) {
             e.printStackTrace();
