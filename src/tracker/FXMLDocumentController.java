@@ -74,7 +74,11 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleDeleteClick(ActionEvent event) {
-        //todo
+         try {
+            Delete();
+        } catch (Exception e) {
+            System.err.println(e);
+        } 
     }
     
     @FXML

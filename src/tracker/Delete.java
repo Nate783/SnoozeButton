@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 /**
  *
@@ -26,29 +27,23 @@ public class Delete {
     @FXML
     private Button invDelCancel;
     
+    
     private Stage DelStage;
-    private boolean handleDelBtn;
+
 
     
    void handleDelBtn(ActionEvent event) {
-
+        
     }
 
     @FXML
     void handleDelCancelButton(ActionEvent event) {
-
+        DelStage.close();
     }
-    @FXML
-    void initialize() {
+ 
+    
+    public void setDelStage(Stage delStage){
+       this.DelStage = delStage;
        
-    }
-    
-
-    public boolean handleDelBtn() {
-       return handleDelBtn;
-    }
-    
-    public void setAddStage(Stage addStage){
-       this.DelStage = DelStage; 
     }
 }

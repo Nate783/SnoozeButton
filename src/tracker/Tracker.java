@@ -189,7 +189,28 @@ public class Tracker extends Application {
   }
     public static void Delete() throws Exception {
         try {
-            
+             // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("DeleteInventory.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage addStage = new Stage();
+            addStage.setTitle("Delete Item");
+            addStage.initModality(Modality.WINDOW_MODAL);
+            Window primaryStage = null;
+            addStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            addStage.setScene(scene);
+
+            // Set the person into the controller.
+            Delete delcontroller;
+            delcontroller = loader.getController();
+            delcontroller.setDelStage(addStage);
+            //controller.setPerson(person);
+
+            // Show the dialog and wait until the user closes it
+            addStage.showAndWait();
 
         } catch (Exception e) {
             e.printStackTrace();
