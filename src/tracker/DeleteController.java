@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  *
  * @author Wakhiel
  */
-public class Delete {
+public class DeleteController {
     @FXML
     private ResourceBundle resources;
 
@@ -37,7 +37,8 @@ public class Delete {
 
 
     
-   void handleDelBtn(ActionEvent event) throws SQLException{
+    void handleDelBtn(ActionEvent event) throws SQLException{
+        
         
     }
 

@@ -204,9 +204,9 @@ public class Tracker extends Application {
             delStage.setScene(scene);
 
             // Set the person into the controller.
-            Delete delcontroller;
-            delcontroller = loader.getController();
-            delcontroller.setDelStage(delStage);
+            DeleteController controller;
+            controller = loader.getController();
+            controller.setDelStage(delStage);
             //controller.setPerson(person);
 
             // Show the dialog and wait until the user closes it
