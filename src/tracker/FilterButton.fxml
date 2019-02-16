@@ -15,7 +15,7 @@
         <CheckBox fx:id="CostBox" layoutX="50.0" layoutY="80.0" mnemonicParsing="false" text="Cost" />
         <CheckBox fx:id="PriceBox" layoutX="50.0" layoutY="110.0" mnemonicParsing="false" text="Price" />
         <CheckBox fx:id="QuantityBox" layoutX="50.0" layoutY="140.0" mnemonicParsing="false" text="Quantity" />
-        <Button layoutX="50.0" layoutY="170.0" minHeight="15.999908447265625" minWidth="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+        <Button layoutX="50.0" layoutY="170.0" minHeight="15.999908447265625" minWidth="-1.0" mnemonicParsing="false" onAction="#resetButtonPushed" onMouseClicked="#resetButtonPushed" prefHeight="30.0" prefWidth="70.0" text="Reset" />
         <ChoiceBox fx:id="NameChoice" layoutX="135.0" layoutY="50.0" prefWidth="74.0">
           <items>
             <FXCollections fx:factory="observableArrayList">
@@ -55,6 +55,7 @@
         <TextField fx:id="CostText" layoutX="227.0" layoutY="80.0" prefWidth="82.0" promptText="\$00.00" />
         <TextField fx:id="PriceText" layoutX="227.0" layoutY="110.0" prefWidth="82.0" promptText="\$00.00" />
         <TextField fx:id="QuantityText" layoutX="227.0" layoutY="140.0" prefWidth="82.0" promptText="0" />
+        <Button layoutX="233.0" layoutY="170.0" minWidth="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Apply" />
       </children>
     </AnchorPane>
   </children>

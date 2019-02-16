@@ -215,5 +215,32 @@ public class Tracker extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-  } 
-}
+  }
+    public static void Filters() throws Exception{
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("FilterButton.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            
+            Stage filterStage = new Stage();
+            filterStage.setTitle("Set Filters");
+            filterStage.initModality(Modality.WINDOW_MODAL);
+            Window primaryStage = null;
+            filterStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            filterStage.setScene(scene);
+            
+            FilterButtonController controller;
+            controller = loader.getController();
+            controller.setFilterStage(filterStage);
+            //controller.setPerson(person);
+            
+            filterStage.showAndWait();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        }
+    }
+

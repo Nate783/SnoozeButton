@@ -83,7 +83,11 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleFilterClick(ActionEvent event) {
-        //todo
+        try{
+            Filters();
+        }catch (Exception e){
+            System.err.println(e);
+        }
     }
     
     public ObservableList<Product> getProducts() throws SQLException {
