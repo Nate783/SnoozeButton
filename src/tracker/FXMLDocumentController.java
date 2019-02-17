@@ -25,6 +25,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import static tracker.Tracker.*;
 
 public class FXMLDocumentController implements Initializable {
@@ -73,12 +77,23 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void handleDeleteClick(ActionEvent event) throws SQLException{
-         try {
-            Delete();
+    private void handleDeleteClick(ActionEvent event) throws SQLException{  
+        
+        try {
+            // move all the fxml loading java code from Tracker.java to here. 
+            
+            // just before showing the dialog, add a new line which calls the 
+            // initData method in DeleteController.java. You can use 
+            // "invTable.getSelectionModel().getSelectedItem()" to get the 
+            // selected item while invoking the method. 
+            
+            // Show the dialog and wait until the user closes it
+            
+            
         } catch (Exception e) {
             System.err.println(e);
         } finally {
+            // after showing the dialog, refresh the table
             invTable.setItems(getProducts());
         }
     }

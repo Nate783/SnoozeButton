@@ -36,15 +36,31 @@ public class DeleteController {
     @FXML
     private Button invDelCancel;
     
+    // declare a new variable called selectedProduct that you can use throughout
+    // this controller. 
+    private Product selectedProduct;
     
     private Stage DelStage;
 
     
     @FXML
     void handleDelBtn(ActionEvent event) throws SQLException{
+        // when the delete button is clicked, take the ID of selected product
+        // and pass it to a SQL delete statement.
+        // you don't need to refresh the table, because closing this window will
+        // always do that.
+        System.out.println(selectedProduct.getId());
         
+        
+        // after deleting the item, now you need to close the window.
     }
-
+    
+    // create a new method called initData
+    // it should expect to receive a Product object
+    public void initData (Product product) {
+        selectedProduct = product;        
+    }
+    
     @FXML
     void handleDelCancelButton(ActionEvent event) {
         DelStage.close();
