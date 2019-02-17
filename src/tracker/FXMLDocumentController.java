@@ -73,12 +73,14 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void handleDeleteClick(ActionEvent event) {
+    private void handleDeleteClick(ActionEvent event) throws SQLException{
          try {
             Delete();
         } catch (Exception e) {
             System.err.println(e);
-        } 
+        } finally {
+            invTable.setItems(getProducts());
+        }
     }
     
     @FXML
