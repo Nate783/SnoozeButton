@@ -4,6 +4,7 @@
  */
 package tracker;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,6 +22,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -72,8 +75,47 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void handleModifyClick(ActionEvent event) {
-        //todo
+    private void handleModifyClick(ActionEvent event) throws SQLException {
+        if (invTable.getSelectionModel().getSelectedItem() != null) {
+            try {
+                // Load the fxml file and create a new stage for the popup dialog.
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Tracker.class.getResource("ModifyInventoryItem.fxml"));
+                AnchorPane page = (AnchorPane) loader.load();
+
+                // Create the dialog Stage.
+                Stage modifyStage = new Stage();
+                modifyStage.setTitle("Modify Inventory Item");
+                modifyStage.initModality(Modality.WINDOW_MODAL);
+                Window primaryStage = null;
+                modifyStage.initOwner(primaryStage);
+                Scene scene = new Scene(page);
+                modifyStage.setScene(scene);
+
+                // Send the product into the controller.
+                ModifyInventoryItemController controller;
+                controller = loader.getController();
+                controller.setModifyStage(modifyStage);
+                controller.initData(invTable.getSelectionModel().getSelectedItem());
+
+
+                // Show the dialog and wait until the user closes it
+                modifyStage.showAndWait();
+
+            } catch (IOException e) {
+                System.err.println(e);
+            } finally {
+                invTable.setItems(getProducts());
+            }
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Selection required");
+            alert.setHeaderText(null);
+            alert.setContentText("You must select an item to modify.");
+            alert.showAndWait();
+        }
+        
+        
     }
     
     @FXML
@@ -140,7 +182,7 @@ public class FXMLDocumentController implements Initializable {
                 );
             }
         }
-        catch(Exception e){
+        catch(SQLException e){
             System.err.println(e.getMessage());
         }
         finally {
