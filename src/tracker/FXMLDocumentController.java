@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import static tracker.Tracker.*;
 
+
 public class FXMLDocumentController implements Initializable {
     
     @FXML private Button invBtnAddToInventory, invBtnModify, invBtnDelete, invBtnFilters;
@@ -86,9 +87,29 @@ public class FXMLDocumentController implements Initializable {
             // initData method in DeleteController.java. You can use 
             // "invTable.getSelectionModel().getSelectedItem()" to get the 
             // selected item while invoking the method. 
-            
+            DeleteController.initData(invTable.getSelectionModel().getSelectedItem());
             // Show the dialog and wait until the user closes it
-            
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("DeleteInventory.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage delStage = new Stage();
+            delStage.setTitle("Delete Item");
+            delStage.initModality(Modality.WINDOW_MODAL);
+            Window primaryStage = null;
+            delStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            delStage.setScene(scene);
+
+            // Set the person into the controller.
+            DeleteController controller;
+            controller = loader.getController();
+            controller.setDelStage(delStage);
+            //controller.setPerson(person);
+           
+            // Show the dialog and wait until the user closes it
+            delStage.showAndWait();
             
         } catch (Exception e) {
             System.err.println(e);

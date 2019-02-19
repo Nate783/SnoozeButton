@@ -208,7 +208,7 @@ public class Tracker extends Application {
             controller = loader.getController();
             controller.setDelStage(delStage);
             //controller.setPerson(person);
-
+            
             // Show the dialog and wait until the user closes it
             delStage.showAndWait();
 
