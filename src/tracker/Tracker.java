@@ -189,10 +189,58 @@ public class Tracker extends Application {
   }
     public static void Delete() throws Exception {
         try {
+             // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("DeleteInventory.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage delStage = new Stage();
+            delStage.setTitle("Delete Item");
+            delStage.initModality(Modality.WINDOW_MODAL);
+            Window primaryStage = null;
+            delStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            delStage.setScene(scene);
+
+            // Set the person into the controller.
+            DeleteController controller;
+            controller = loader.getController();
+            controller.setDelStage(delStage);
+            //controller.setPerson(person);
             
+            // Show the dialog and wait until the user closes it
+            delStage.showAndWait();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-  } 
-}
+  }
+    public static void Filters() throws Exception{
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("FilterButton.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            
+            Stage filterStage = new Stage();
+            filterStage.setTitle("Set Filters");
+            filterStage.initModality(Modality.WINDOW_MODAL);
+            Window primaryStage = null;
+            filterStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            filterStage.setScene(scene);
+            
+            FilterButtonController controller;
+            controller = loader.getController();
+            controller.setFilterStage(filterStage);
+            //controller.setPerson(person);
+            
+            filterStage.showAndWait();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        }
+    }
+
