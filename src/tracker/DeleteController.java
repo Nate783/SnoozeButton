@@ -1,6 +1,6 @@
 /*
- * Here comes the text of your license
- * Each line should be prefixed with  * 
+ * CSI 2999 - Sophomore Project
+ * SBTracker
  */
 package tracker;
 import java.net.URL;

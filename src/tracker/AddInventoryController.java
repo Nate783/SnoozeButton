@@ -1,6 +1,6 @@
 /*
- * Here comes the text of your license
- * Each line should be prefixed with  * 
+ * CSI 2999 - Sophomore Project
+ * SBTracker
  */
 package tracker;
 
@@ -41,8 +41,11 @@ public class AddInventoryController {
     private TextField salesPrice;
 
     @FXML
-    void handleAddBtn(ActionEvent event) throws SQLException {
-
+    private void handleAddBtn(ActionEvent event) throws SQLException {
+        // check if input is valid
+        //      if yes, do logic
+        //      if no, error
+        
         //Creating variables that convert string to double/int
         double cos = Double.parseDouble(cost.getText());
         double pri = Double.parseDouble(salesPrice.getText());
@@ -59,7 +62,7 @@ public class AddInventoryController {
     }
 
     @FXML
-    void handleCancelButton(ActionEvent event) {
+    private void handleCancelButton(ActionEvent event) {
         addStage.close();
     }
 

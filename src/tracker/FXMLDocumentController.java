@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -123,13 +122,7 @@ public class FXMLDocumentController implements Initializable {
     private void handleDeleteClick(ActionEvent event) throws SQLException{  
         
         try {
-            // move all the fxml loading java code from Tracker.java to here. 
-            
-            // just before showing the dialog, add a new line which calls the 
-            // initData method in DeleteController.java. You can use 
-            // "invTable.getSelectionModel().getSelectedItem()" to get the 
-            // selected item while invoking the method. 
-            
+                       
             // Show the dialog and wait until the user closes it
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Tracker.class.getResource("DeleteInventory.fxml"));
@@ -144,7 +137,7 @@ public class FXMLDocumentController implements Initializable {
             Scene scene = new Scene(page);
             delStage.setScene(scene);
 
-            // Set the person into the controller.
+            // Set the product into the controller.
             DeleteController controller;
             controller = loader.getController();
             controller.setDelStage(delStage);
@@ -222,4 +215,5 @@ public class FXMLDocumentController implements Initializable {
         // return newly created observable list
         return products;
     }
+
 }

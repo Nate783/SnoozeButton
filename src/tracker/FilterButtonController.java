@@ -1,3 +1,7 @@
+/*
+ * CSI 2999 - Sophomore Project
+ * SBTracker
+ */
 package tracker;
 import java.net.URL;
 import java.util.ResourceBundle;
