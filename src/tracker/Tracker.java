@@ -242,5 +242,34 @@ public class Tracker extends Application {
         }
         
         }
+     public static void ModifyInventoryItemController() throws Exception {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("ModifyInventoryItem.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage modifyStage = new Stage();
+            modifyStage.setTitle("Modify Inventory");
+            modifyStage.initModality(Modality.WINDOW_MODAL);
+            Window primaryStage = null;
+            modifyStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            modifyStage.setScene(scene);
+
+            // Set the person into the controller.
+            ModifyInventoryItemController controller;
+            controller = loader.getController();
+            controller.setModifyStage(modifyStage);
+            //controller.setPerson(person);
+
+            // Show the dialog and wait until the user closes it
+            modifyStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+  }
     }
 
