@@ -129,7 +129,7 @@ public class FXMLDocumentController implements Initializable {
             // initData method in DeleteController.java. You can use 
             // "invTable.getSelectionModel().getSelectedItem()" to get the 
             // selected item while invoking the method. 
-            DeleteController.initData(invTable.getSelectionModel().getSelectedItem());
+            
             // Show the dialog and wait until the user closes it
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Tracker.class.getResource("DeleteInventory.fxml"));
@@ -148,7 +148,7 @@ public class FXMLDocumentController implements Initializable {
             DeleteController controller;
             controller = loader.getController();
             controller.setDelStage(delStage);
-            //controller.setPerson(person);
+            controller.initData(invTable.getSelectionModel().getSelectedItem());
            
             // Show the dialog and wait until the user closes it
             delStage.showAndWait();

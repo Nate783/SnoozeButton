@@ -38,7 +38,7 @@ public class DeleteController {
     
     // declare a new variable called selectedProduct that you can use throughout
     // this controller. 
-    private static Product selectedProduct;
+    private Product selectedProduct;
     
     private Stage DelStage;
 
@@ -88,7 +88,7 @@ public class DeleteController {
     
     // create a new method called initData
     // it should expect to receive a Product object
-    public static void initData (Product product) {
+    public void initData (Product product) {
         selectedProduct = product;        
     }
     
