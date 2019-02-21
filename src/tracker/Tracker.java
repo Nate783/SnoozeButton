@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,6 +27,8 @@ public class Tracker extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-scan-stock-96.png")));
+        stage.setTitle("Small Business Tracker");
         
         stage.setScene(scene);
         stage.show();
@@ -158,64 +161,6 @@ public class Tracker extends Application {
             }
     }
     
-    public static void AddInventoryController() throws Exception {
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Tracker.class.getResource("AddInventory.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage addStage = new Stage();
-            addStage.setTitle("Add Inventory");
-            addStage.initModality(Modality.WINDOW_MODAL);
-            Window primaryStage = null;
-            addStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            addStage.setScene(scene);
-
-            // Set the person into the controller.
-            AddInventoryController controller;
-            controller = loader.getController();
-            controller.setAddStage(addStage);
-            //controller.setPerson(person);
-
-            // Show the dialog and wait until the user closes it
-            addStage.showAndWait();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-  }
-    public static void Delete() throws Exception {
-        try {
-             // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Tracker.class.getResource("DeleteInventory.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage delStage = new Stage();
-            delStage.setTitle("Delete Item");
-            delStage.initModality(Modality.WINDOW_MODAL);
-            Window primaryStage = null;
-            delStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            delStage.setScene(scene);
-
-            // Set the person into the controller.
-            DeleteController controller;
-            controller = loader.getController();
-            controller.setDelStage(delStage);
-            //controller.setPerson(person);
-            
-            // Show the dialog and wait until the user closes it
-            delStage.showAndWait();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-  }
     public static void Filters() throws Exception{
         try{
             FXMLLoader loader = new FXMLLoader();
@@ -242,34 +187,6 @@ public class Tracker extends Application {
         }
         
         }
-     public static void ModifyInventoryItemController() throws Exception {
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Tracker.class.getResource("ModifyInventoryItem.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage modifyStage = new Stage();
-            modifyStage.setTitle("Modify Inventory");
-            modifyStage.initModality(Modality.WINDOW_MODAL);
-            Window primaryStage = null;
-            modifyStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            modifyStage.setScene(scene);
-
-            // Set the person into the controller.
-            ModifyInventoryItemController controller;
-            controller = loader.getController();
-            controller.setModifyStage(modifyStage);
-            //controller.setPerson(person);
-
-            // Show the dialog and wait until the user closes it
-            modifyStage.showAndWait();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-  }
-    }
+     
+}
 

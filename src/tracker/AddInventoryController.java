@@ -69,6 +69,7 @@ public class AddInventoryController {
     public void setAddStage(Stage addStage) throws SQLException {
         this.addStage = addStage;
         labelID.setText(Integer.toString(nextID()));
+        
     }
 
     public static int nextID() throws SQLException {

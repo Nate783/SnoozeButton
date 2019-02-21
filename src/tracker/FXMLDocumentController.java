@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -66,7 +67,29 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleAddClick(ActionEvent event) throws SQLException {
         try {
-            AddInventoryController();
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("AddInventory.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage addStage = new Stage();
+            
+            addStage.setTitle("Add Inventory");
+            addStage.initModality(Modality.WINDOW_MODAL);
+            addStage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-add-property-48.png")));
+            Window primaryStage = null;
+            addStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            addStage.setScene(scene);
+
+            // Set the person into the controller.
+            AddInventoryController controller;
+            controller = loader.getController();
+            controller.setAddStage(addStage);
+            
+            // Show the dialog and wait until the user closes it
+            addStage.showAndWait();
         } catch (Exception e) {
             System.err.println(e);
         } finally {
@@ -86,6 +109,8 @@ public class FXMLDocumentController implements Initializable {
                 // Create the dialog Stage.
                 Stage modifyStage = new Stage();
                 modifyStage.setTitle("Modify Inventory Item");
+                modifyStage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-edit-property-48.png")));
+
                 modifyStage.initModality(Modality.WINDOW_MODAL);
                 Window primaryStage = null;
                 modifyStage.initOwner(primaryStage);
@@ -131,6 +156,7 @@ public class FXMLDocumentController implements Initializable {
             // Create the dialog Stage.
             Stage delStage = new Stage();
             delStage.setTitle("Delete Item");
+            delStage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-delete-document-48.png")));
             delStage.initModality(Modality.WINDOW_MODAL);
             Window primaryStage = null;
             delStage.initOwner(primaryStage);
