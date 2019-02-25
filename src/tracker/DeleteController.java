@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -24,11 +25,6 @@ import tracker.Product;
  * @author Wakhiel
  */
 public class DeleteController {
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button invDel;
@@ -41,6 +37,9 @@ public class DeleteController {
     private Product selectedProduct;
     
     private Stage DelStage;
+    
+    @FXML
+    private Label prodLabel;
 
     
     @FXML
@@ -89,7 +88,8 @@ public class DeleteController {
     // create a new method called initData
     // it should expect to receive a Product object
     public void initData (Product product) {
-        selectedProduct = product;        
+        selectedProduct = product;
+        prodLabel.setText(selectedProduct.getName());
     }
     
     @FXML
