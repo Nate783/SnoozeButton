@@ -47,7 +47,7 @@ public class AddInventoryController {
     @FXML
     private Label errMsgLabel;
     
-    @FMXL
+   
     private Label errMsgProduct;
     
     
@@ -79,9 +79,6 @@ public class AddInventoryController {
         } 
     }
     
-    public void initialize(URL url, ResourceBundle rb) {
-        errMsgLabel.setText("asd");
-    }
 
     @FXML
     private void handleCancelButton(ActionEvent event) {
