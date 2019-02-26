@@ -47,6 +47,10 @@ public class AddInventoryController {
     @FXML
     private Label errMsgLabel;
     
+    @FMXL
+    private Label errMsgProduct;
+    
+    
     @FXML
     private void handleAddBtn(ActionEvent event) throws SQLException {
         // check if input is valid
@@ -70,7 +74,8 @@ public class AddInventoryController {
         } 
         
         catch (Exception e) {
-            errMsgLabel.setText("Please fill in all fields");
+            errMsgLabel.setText("Please fill in all fields!");
+            errMsgProduct.setText("HI");
         } 
     }
     
