@@ -4,14 +4,18 @@
  */
 package tracker;
 
+import static java.awt.SystemColor.text;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -39,26 +43,39 @@ public class AddInventoryController {
 
     @FXML
     private TextField salesPrice;
-
+    
+    @FXML
+    private Label errMsgLabel;
+    
     @FXML
     private void handleAddBtn(ActionEvent event) throws SQLException {
         // check if input is valid
         //      if yes, do logic
         //      if no, error
         
-        //Creating variables that convert string to double/int
-        double cos = Double.parseDouble(cost.getText());
-        double pri = Double.parseDouble(salesPrice.getText());
-        int qty = Integer.parseInt(quantity.getText());
+        try {
+            //Creating variables that convert string to double/int
+            double cos = Double.parseDouble(cost.getText());
+            double pri = Double.parseDouble(salesPrice.getText());
+            int qty = Integer.parseInt(quantity.getText());
 
-        //Creating the object and filling it with the necessary items
-        Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
+            //Creating the object and filling it with the necessary items
+            Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
 
-        // Sending the object to the database
-        Tracker.saveProdToDatabase(p);
+            // Sending the object to the database
+            Tracker.saveProdToDatabase(p);
+
+            // close window
+            addStage.close();
+        } 
         
-        // close window
-        addStage.close();
+        catch (Exception e) {
+            errMsgLabel.setText("Please fill in all fields");
+        } 
+    }
+    
+    public void initialize(URL url, ResourceBundle rb) {
+        errMsgLabel.setText("asd");
     }
 
     @FXML
@@ -69,7 +86,7 @@ public class AddInventoryController {
     public void setAddStage(Stage addStage) throws SQLException {
         this.addStage = addStage;
         labelID.setText(Integer.toString(nextID()));
-        
+
     }
 
     public static int nextID() throws SQLException {
