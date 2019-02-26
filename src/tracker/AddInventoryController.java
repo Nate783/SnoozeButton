@@ -43,42 +43,53 @@ public class AddInventoryController {
 
     @FXML
     private TextField salesPrice;
-    
+
     @FXML
     private Label errMsgLabel;
-    
-   
-    private Label errMsgProduct;
-    
-    
+
+    //private Label errMsgProduct;
     @FXML
     private void handleAddBtn(ActionEvent event) throws SQLException {
         // check if input is valid
         //      if yes, do logic
         //      if no, error
-        
-        try {
-            //Creating variables that convert string to double/int
-            double cos = Double.parseDouble(cost.getText());
-            double pri = Double.parseDouble(salesPrice.getText());
-            int qty = Integer.parseInt(quantity.getText());
 
-            //Creating the object and filling it with the necessary items
-            Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
+        if (isValid(productName, cost, salesPrice, quantity, productName.getText()) == true) {
+            try {
+                //Creating variables that convert string to double/int
+                double cos = Double.parseDouble(cost.getText());
+                double pri = Double.parseDouble(salesPrice.getText());
+                int qty = Integer.parseInt(quantity.getText());
 
-            // Sending the object to the database
-            Tracker.saveProdToDatabase(p);
+                //Creating the object and filling it with the necessary items
+                Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
 
-            // close window
-            addStage.close();
-        } 
-        
-        catch (Exception e) {
-            errMsgLabel.setText("Please fill in all fields!");
-            errMsgProduct.setText("HI");
-        } 
+                // Sending the object to the database
+                Tracker.saveProdToDatabase(p);
+
+                // close window
+                addStage.close();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+               // errMsgLabel.setText("Please fill in all fields!");
+            }
+        }
+
     }
-    
+
+    private boolean isValid(TextField name, TextField cost, TextField price, TextField qty, String message) {
+
+        
+                try {
+            double cos = Double.parseDouble(cost.getText());
+            System.out.print("yay");
+            return true;
+        } catch(Exception e)  {
+            System.out.print("bad");
+            errMsgLabel.setText("Please enter a number!");
+            return false;
+        }
+    }
 
     @FXML
     private void handleCancelButton(ActionEvent event) {
