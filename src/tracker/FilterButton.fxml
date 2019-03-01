@@ -7,56 +7,107 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="297.9998779296875" prefWidth="343.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tracker.FilterButtonController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tracker.FilterButtonController">
   <children>
-    <AnchorPane blendMode="SRC_OVER" mouseTransparent="false" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <GridPane layoutX="70.0" layoutY="155.0" maxHeight="-1.0">
       <children>
-        <CheckBox fx:id="NameBox" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="Name" />
-        <CheckBox fx:id="CostBox" layoutX="50.0" layoutY="80.0" mnemonicParsing="false" text="Cost" />
-        <CheckBox fx:id="PriceBox" layoutX="50.0" layoutY="110.0" mnemonicParsing="false" text="Price" />
-        <CheckBox fx:id="QuantityBox" layoutX="50.0" layoutY="140.0" mnemonicParsing="false" text="Quantity" />
-        <Button layoutX="50.0" layoutY="170.0" minHeight="15.999908447265625" minWidth="-1.0" mnemonicParsing="false" onAction="#resetButtonPushed" onMouseClicked="#resetButtonPushed" prefHeight="30.0" prefWidth="70.0" text="Reset" />
-        <ChoiceBox fx:id="NameChoice" layoutX="135.0" layoutY="50.0" prefWidth="74.0">
+        <ComboBox fx:id="FilterBox1" prefHeight="21.0" prefWidth="79.0" promptText="Filter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
           <items>
             <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Contains" />
+              <String fx:value="Name" />
+              <String fx:value="Cost" />
+              <String fx:value="Item Price" />
+              <String fx:value="Quantity" />
             </FXCollections>
           </items>
-        </ChoiceBox>
-        <Label layoutX="50.0" layoutY="28.0" text="Filter By" />
-        <ChoiceBox fx:id="CostChoice" layoutX="135.0" layoutY="80.0">
+        </ComboBox>
+        <ComboBox fx:id="ModifierBox1" prefHeight="21.0" prefWidth="79.0" promptText="Modifier" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
           <items>
             <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Above" />
-              <String fx:value="Below" />
-              <String fx:value="Equals" />
+              <String fx:value="&gt;" />
+              <String fx:value="&lt;" />
+              <String fx:value="CONTAINS" />
+              <String fx:value="=" />
             </FXCollections>
           </items>
-        </ChoiceBox>
-        <ChoiceBox fx:id="PriceChoice" layoutX="135.0" layoutY="110.0">
+        </ComboBox>
+        <TextField fx:id="FilterText1" prefWidth="200.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+        <ComboBox fx:id="FilterBox2" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Filter 2" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
           <items>
             <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Above" />
-              <String fx:value="Below" />
-              <String fx:value="Equals" />
+              <String fx:value="Name" />
+              <String fx:value="Cost" />
+              <String fx:value="Item Price" />
+              <String fx:value="Quantity" />
             </FXCollections>
           </items>
-        </ChoiceBox>
-        <ChoiceBox fx:id="QuantityChoice" layoutX="135.0" layoutY="140.0">
+        </ComboBox>
+        <ComboBox fx:id="ModifierBox2" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Modifier 2" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
           <items>
             <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Above" />
-              <String fx:value="Below" />
-              <String fx:value="Equals" />
+              <String fx:value="&gt;" />
+              <String fx:value="&lt;" />
+              <String fx:value="CONTAINS" />
+              <String fx:value="=" />
             </FXCollections>
           </items>
-        </ChoiceBox>
-        <TextField fx:id="NameText" layoutX="227.0" layoutY="50.0" prefWidth="82.0" promptText="Name" />
-        <TextField fx:id="CostText" layoutX="227.0" layoutY="80.0" prefWidth="82.0" promptText="\$00.00" />
-        <TextField fx:id="PriceText" layoutX="227.0" layoutY="110.0" prefWidth="82.0" promptText="\$00.00" />
-        <TextField fx:id="QuantityText" layoutX="227.0" layoutY="140.0" prefWidth="82.0" promptText="0" />
-        <Button layoutX="233.0" layoutY="170.0" minWidth="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Apply" />
+        </ComboBox>
+        <TextField fx:id="FilterText2" disable="true" prefWidth="200.0" text="" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <ComboBox fx:id="FilterBox3" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Filter 3" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Name" />
+              <String fx:value="Cost" />
+              <String fx:value="Item Price" />
+              <String fx:value="Quantity" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <ComboBox fx:id="ModifierBox3" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Modifier 3" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="&gt;" />
+              <String fx:value="&lt;" />
+              <String fx:value="CONTAINS" />
+              <String fx:value="=" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <TextField fx:id="FilterText3" disable="true" prefWidth="200.0" text="" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        <Button fx:id="Add1" contentDisplay="LEFT" mnemonicParsing="false" onAction="#handleAdd1" text="+" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+        <Button fx:id="Add2" disable="true" mnemonicParsing="false" onAction="#handleAdd2" text="+" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <Button fx:id="ApplyButton" mnemonicParsing="false" onAction="#handleApplyButton" text="Apply" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <ComboBox fx:id="AndOr1" disable="true" promptText="And/Or" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="AND" />
+              <String fx:value="OR" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <ComboBox fx:id="AndOr2" disable="true" promptText="And/Or" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="AND" />
+              <String fx:value="OR" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <Button fx:id="ResetButton" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
       </children>
-    </AnchorPane>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
   </children>
 </AnchorPane>
