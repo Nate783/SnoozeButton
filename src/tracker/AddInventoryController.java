@@ -33,48 +33,47 @@ public class AddInventoryController {
 
     @FXML
     private void handleAddBtn(ActionEvent event) throws SQLException {
-        // check if input is valid
-        //      if yes, do logic
-        //      if no, error
-        System.out.println("asd");
+
+        // Creating the variables we'll need to check if the input is valid and to convert string to int/double
         String pName, pCost, pPrice, pQty;
         double cos = Double.parseDouble(cost.getText());
         double pri = Double.parseDouble(salesPrice.getText());
         int qty = Integer.parseInt(quantity.getText());
         boolean nameValid, costValid, priceValid, qtyValid;
 
+        //Checking if the users product name entry is valid
         pName = productName.getText();
-        if (pName.matches("[A-Z]")) {
-            System.out.println("match");
+        if (pName.matches("[A-Za-z]+") && pName != null ) {
             nameValid = true;
         } else {
             nameValid = false;
         }
 
+        // Checking if the users product cost entry is valid
         pCost = cost.getText();
         if (isNumeric(pCost)) {
             costValid = true;
-            System.out.println("Cost is valid");
         } else {
             costValid = false;
         }
 
+        // Checking if the users product price entry is valid
         pPrice = salesPrice.getText();
         if (isNumeric(pPrice)) {
             priceValid = true;
-            System.out.println("Price is valid");
         } else {
             priceValid = false;
         }
 
+        // Checking if the users product quantity is valid
         pQty = quantity.getText();
         if (isNumeric(pQty)) {
             qtyValid = true;
-            System.out.println("Qty is valid");
         } else {
             qtyValid = false;
         }
 
+        // Check if all entries are valid, if yes create object and save to database, otherwise display error
         if (nameValid && costValid && priceValid && qtyValid) {
             Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
             Tracker.saveProdToDatabase(p);
@@ -90,6 +89,7 @@ public class AddInventoryController {
 
     }
 
+    //Boolean to check the validity of users numeric entries
     public boolean isNumeric(String p) {
         return p != null && p.matches("^[+-]?(([1-9]\\d*)|0)(\\.\\d+)?");
     }
