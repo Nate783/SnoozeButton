@@ -18,77 +18,80 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class AddInventoryController {
 
     @FXML
-    private Button invBtnAdd;
-
-    @FXML
-    private Button invBtnCancel;
+    private Button invBtnAdd, invBtnCancel;
 
     private Stage addStage;
 
     @FXML
-    private TextField labelID;
+    private TextField labelID, productName, cost, quantity, salesPrice;
 
-    @FXML
-    private TextField productName;
-
-    @FXML
-    private TextField cost;
-
-    @FXML
-    private TextField quantity;
-
-    @FXML
-    private TextField salesPrice;
-
-    @FXML
-    private Label errMsgLabel;
-
-    //private Label errMsgProduct;
     @FXML
     private void handleAddBtn(ActionEvent event) throws SQLException {
         // check if input is valid
         //      if yes, do logic
         //      if no, error
+        System.out.println("asd");
+        String pName, pCost, pPrice, pQty;
+        double cos = Double.parseDouble(cost.getText());
+        double pri = Double.parseDouble(salesPrice.getText());
+        int qty = Integer.parseInt(quantity.getText());
+        boolean nameValid, costValid, priceValid, qtyValid;
 
-        if (isValid(productName, cost, salesPrice, quantity, productName.getText()) == true) {
-            try {
-                //Creating variables that convert string to double/int
-                double cos = Double.parseDouble(cost.getText());
-                double pri = Double.parseDouble(salesPrice.getText());
-                int qty = Integer.parseInt(quantity.getText());
+        pName = productName.getText();
+        if (pName.matches("[A-Z]")) {
+            System.out.println("match");
+            nameValid = true;
+        } else {
+            nameValid = false;
+        }
 
-                //Creating the object and filling it with the necessary items
-                Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
+        pCost = cost.getText();
+        if (isNumeric(pCost)) {
+            costValid = true;
+            System.out.println("Cost is valid");
+        } else {
+            costValid = false;
+        }
 
-                // Sending the object to the database
-                Tracker.saveProdToDatabase(p);
+        pPrice = salesPrice.getText();
+        if (isNumeric(pPrice)) {
+            priceValid = true;
+            System.out.println("Price is valid");
+        } else {
+            priceValid = false;
+        }
 
-                // close window
-                addStage.close();
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-               // errMsgLabel.setText("Please fill in all fields!");
-            }
+        pQty = quantity.getText();
+        if (isNumeric(pQty)) {
+            qtyValid = true;
+            System.out.println("Qty is valid");
+        } else {
+            qtyValid = false;
+        }
+
+        if (nameValid && costValid && priceValid && qtyValid) {
+            Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
+            Tracker.saveProdToDatabase(p);
+            addStage.close();
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setHeaderText("Looks like a few fields need to be corrected.");
+            alert.setContentText("Product Name can only consist of letters\n" + "Cost must be numerical\n"
+                    + "Price must be numerical\n" + "Quantity must be numerical\n" + "No field can be empty");
+            alert.showAndWait();
         }
 
     }
 
-    private boolean isValid(TextField name, TextField cost, TextField price, TextField qty, String message) {
-
-        
-                try {
-            double cos = Double.parseDouble(cost.getText());
-            System.out.print("yay");
-            return true;
-        } catch(Exception e)  {
-            System.out.print("bad");
-            errMsgLabel.setText("Please enter a number!");
-            return false;
-        }
+    public boolean isNumeric(String p) {
+        return p != null && p.matches("^[+-]?(([1-9]\\d*)|0)(\\.\\d+)?");
     }
 
     @FXML
