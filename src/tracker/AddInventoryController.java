@@ -76,13 +76,13 @@ public class AddInventoryController {
         if (isNumeric(pQty) && qty > 0) {
             qtyValid = true;
             qtyError = "";
-        } else {
+        } else { 
             qtyValid = false;
             qtyError = "Quantity must be greater than 0";
         }
 
         // Check if all entries are valid, if yes create object and save to database, otherwise display error
-        if (nameValid && costValid && priceValid && qtyValid && pri > cos) {
+        if (nameValid && costValid && priceValid && qtyValid && pri > cos ) {
             Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
             Tracker.saveProdToDatabase(p);
             addStage.close();

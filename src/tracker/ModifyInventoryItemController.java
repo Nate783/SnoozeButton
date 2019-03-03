@@ -79,7 +79,7 @@ public class ModifyInventoryItemController implements Initializable {
         }
         else{
             System.err.println("Enter a valid number for the price");
-            priceValid = false;
+            priceValid = false; 
         }
         sQty = txtQty.getText();
         if(isInteger(sQty)){
