@@ -43,7 +43,7 @@ public class AddInventoryController {
 
         //Checking if the users product name entry is valid
         pName = productName.getText();
-        if (pName.matches("[A-Za-z]+") && pName != null ) {
+        if (pName.matches("[A-Za-z]+") && pName != null) {
             nameValid = true;
             nameError = "";
         } else {
@@ -82,16 +82,15 @@ public class AddInventoryController {
         }
 
         // Check if all entries are valid, if yes create object and save to database, otherwise display error
-        if (nameValid && costValid && priceValid && qtyValid && pri>cos) {
+        if (nameValid && costValid && priceValid && qtyValid && pri > cos) {
             Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
             Tracker.saveProdToDatabase(p);
             addStage.close();
-        } 
-        else {
+        } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Input Error");
             alert.setHeaderText("Looks like a few fields need to be corrected.");
-            alert.setContentText(nameError + "\n" + costError + "\n" + priceError + "\n" + qtyError );
+            alert.setContentText(nameError + "\n" + costError + "\n" + priceError + "\n" + qtyError);
             alert.showAndWait();
         }
 
