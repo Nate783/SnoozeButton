@@ -68,7 +68,7 @@ public class AddInventoryController {
             priceError = "";
         } else {
             priceValid = false;
-            priceError = "Sales price must be greater than cost";
+            priceError = "Sales price must be greater than cost and not negative";
         }
 
         // Checking if the users product quantity is valid
