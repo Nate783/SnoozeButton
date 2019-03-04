@@ -36,29 +36,71 @@ public class ModifyInventoryItemController implements Initializable {
     }    
     
 
-    
+    public boolean isNumeric(String s) {  
+        return s != null && s.matches("^[+-]?(([1-9]\\d*)|0)(\\.\\d+)?");  
+        }  
+    public boolean isInteger(String s){
+        return s != null && s.matches("^[0-9]\\d*$");
+       }
     @FXML
     private void handleSaveClick(ActionEvent event) throws SQLException{
         // when the save button is clicked pass changes to a SQL statement.
         // you don't need to refresh the table, because closing this window will
         // always do that.
-        int uid, qty;
-        double cost,price;
-        String name;
+        
+        int uid, qty = 0;
+        double cost = 0,price = 0;
+        String name, sCost, sPrice, sQty;
+        boolean nameValid, costValid, priceValid, qtyValid;
         
         uid = Integer.parseInt(txtID.getText()); 
         name = txtName.getText();
+        if(name.matches("^[a-zA-Z]*$")){
+            nameValid = true;
+        }
+        else{
+            nameValid = false;
+        }
+        
+        sCost = txtCost.getText();
+        if(isNumeric(sCost)){
         cost = Double.parseDouble(txtCost.getText());
+        costValid = true;
+        }
+        else{
+            System.err.println("Enter a valid number for the cost");
+            costValid = false;
+        }
+        
+        sPrice = txtPrice.getText();
+        if(isNumeric(sPrice)){
         price = Double.parseDouble(txtPrice.getText());
+        priceValid = true;
+        }
+        else{
+            System.err.println("Enter a valid number for the price");
+            priceValid = false; 
+        }
+        sQty = txtQty.getText();
+        if(isInteger(sQty)){
         qty = Integer.parseInt(txtQty.getText());
+        qtyValid = true;
+        }
+        else{
+            System.err.println("Enter a valid number for the quantity");
+            qtyValid = false;
+        }
+        
         
         //Creating the object and filling it with the necessary items
+        if(nameValid && costValid && priceValid && qtyValid){
         Product modified = new Product(uid, name, cost, price, qty);
         Tracker.saveProdToDatabase(modified);
 
         
         // after modifying the item, now you need to close the window.
         modifyStage.close();
+    }
     }
     
     @FXML

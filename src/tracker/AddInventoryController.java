@@ -18,77 +18,104 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class AddInventoryController {
 
     @FXML
-    private Button invBtnAdd;
-
-    @FXML
-    private Button invBtnCancel;
+    private Button invBtnAdd, invBtnCancel;
 
     private Stage addStage;
 
     @FXML
-    private TextField labelID;
+    private TextField labelID, productName, cost, quantity, salesPrice;
 
-    @FXML
-    private TextField productName;
-
-    @FXML
-    private TextField cost;
-
-    @FXML
-    private TextField quantity;
-
-    @FXML
-    private TextField salesPrice;
-
-    @FXML
-    private Label errMsgLabel;
-
-    //private Label errMsgProduct;
     @FXML
     private void handleAddBtn(ActionEvent event) throws SQLException {
-        // check if input is valid
-        //      if yes, do logic
-        //      if no, error
 
-        if (isValid(productName, cost, salesPrice, quantity, productName.getText()) == true) {
+        // Checking for empty entries 
+        if (cost.getText().trim().isEmpty() || quantity.getText().trim().isEmpty() || salesPrice.getText().trim().isEmpty()
+                || productName.getText().trim().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setHeaderText("Looks like a few fields need to be corrected.");
+            alert.setContentText("No fields can be empty!");
+            alert.showAndWait();
+        }
+
+        if (productName.getText().trim().length() > 0) {
+
             try {
-                //Creating variables that convert string to double/int
+                // Creating the variables we'll need to check if the input is valid and to convert string to int/double
+                String pName, pCost, pPrice, pQty, nameError, costError, priceError, qtyError;
                 double cos = Double.parseDouble(cost.getText());
                 double pri = Double.parseDouble(salesPrice.getText());
                 int qty = Integer.parseInt(quantity.getText());
+                boolean nameValid, costValid, priceValid, qtyValid;
 
-                //Creating the object and filling it with the necessary items
-                Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
+                //Checking if the users product name entry is valid
+                pName = productName.getText();
+                if (pName.matches("[A-Za-z]+") && pName != null) {
+                    nameValid = true;
+                    nameError = "";
+                } else {
+                    nameValid = false;
+                    nameError = "Product name must consist of characters A-Z";
+                }
 
-                // Sending the object to the database
-                Tracker.saveProdToDatabase(p);
+                // Checking if the users product cost entry is valid
+                pCost = cost.getText();
+                if (isNumeric(pCost) && pri > cos && pCost != null && pCost.trim().length() > 0) {
+                    costValid = true;
+                    costError = "";
+                    System.out.print(pCost.length());
+                } else {
+                    costValid = false;
+                    costError = "Cost must be less than price and not negative.";
+                }
 
-                // close window
-                addStage.close();
+                // Checking if the users product price entry is valid
+                pPrice = salesPrice.getText();
+                if (isNumeric(pPrice) && pri > cos && pPrice != null) {
+                    priceValid = true;
+                    priceError = "";
+                } else {
+                    priceValid = false;
+                    priceError = "Sales price must be greater than cost and not negative";
+                }
+
+                // Checking if the users product quantity is valid
+                pQty = quantity.getText();
+                if (isNumeric(pQty) && qty > 0 && pQty != null) {
+                    qtyValid = true;
+                    qtyError = "";
+                } else {
+                    qtyValid = false;
+                    qtyError = "Quantity must be greater than 0";
+                }
+
+                // Check if all entries are valid, if yes create object and save to database, otherwise display error
+                if (nameValid && costValid && priceValid && qtyValid) {
+                    Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
+                    Tracker.saveProdToDatabase(p);
+                    addStage.close();
+                } else {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText("Looks like a few fields need to be corrected.");
+                    alert.setContentText(nameError + "\n" + costError + "\n" + priceError + "\n" + qtyError);
+                    alert.showAndWait();
+                }
             } catch (Exception e) {
-                System.err.println(e.getMessage());
-               // errMsgLabel.setText("Please fill in all fields!");
+                System.err.println(e);
             }
         }
-
     }
 
-    private boolean isValid(TextField name, TextField cost, TextField price, TextField qty, String message) {
-
-        
-                try {
-            double cos = Double.parseDouble(cost.getText());
-            System.out.print("yay");
-            return true;
-        } catch(Exception e)  {
-            System.out.print("bad");
-            errMsgLabel.setText("Please enter a number!");
-            return false;
-        }
+    //Boolean to check the validity of users numeric entries
+    public boolean isNumeric(String p) {
+        return p != null && p.matches("^[+]?(([1-9]\\d*)|0)(\\.\\d+)?");
     }
 
     @FXML
