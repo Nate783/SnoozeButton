@@ -34,66 +34,83 @@ public class AddInventoryController {
     @FXML
     private void handleAddBtn(ActionEvent event) throws SQLException {
 
-        // Creating the variables we'll need to check if the input is valid and to convert string to int/double
-        String pName, pCost, pPrice, pQty, nameError, costError, priceError, qtyError;
-        double cos = Double.parseDouble(cost.getText());
-        double pri = Double.parseDouble(salesPrice.getText());
-        int qty = Integer.parseInt(quantity.getText());
-        boolean nameValid, costValid, priceValid, qtyValid;
-
-        //Checking if the users product name entry is valid
-        pName = productName.getText();
-        if (pName.matches("[A-Za-z]+") && pName != null) {
-            nameValid = true;
-            nameError = "";
-        } else {
-            nameValid = false;
-            nameError = "Product name must consist of characters A-Z";
-        }
-
-        // Checking if the users product cost entry is valid
-        pCost = cost.getText();
-        if (isNumeric(pCost) && pri > cos) {
-            costValid = true;
-            costError = "";
-        } else {
-            costValid = false;
-            costError = "Cost must be less than price and not negative.";
-        }
-
-        // Checking if the users product price entry is valid
-        pPrice = salesPrice.getText();
-        if (isNumeric(pPrice) && pri > cos) {
-            priceValid = true;
-            priceError = "";
-        } else {
-            priceValid = false;
-            priceError = "Sales price must be greater than cost and not negative";
-        }
-
-        // Checking if the users product quantity is valid
-        pQty = quantity.getText();
-        if (isNumeric(pQty) && qty > 0) {
-            qtyValid = true;
-            qtyError = "";
-        } else { 
-            qtyValid = false;
-            qtyError = "Quantity must be greater than 0";
-        }
-
-        // Check if all entries are valid, if yes create object and save to database, otherwise display error
-        if (nameValid && costValid && priceValid && qtyValid && pri > cos ) {
-            Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
-            Tracker.saveProdToDatabase(p);
-            addStage.close();
-        } else {
+        // Checking for empty entries 
+        if (cost.getText().trim().isEmpty() || quantity.getText().trim().isEmpty() || salesPrice.getText().trim().isEmpty()
+                || productName.getText().trim().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Input Error");
             alert.setHeaderText("Looks like a few fields need to be corrected.");
-            alert.setContentText(nameError + "\n" + costError + "\n" + priceError + "\n" + qtyError);
+            alert.setContentText("No fields can be empty!");
             alert.showAndWait();
         }
 
+        if (productName.getText().trim().length() > 0) {
+
+            try {
+                // Creating the variables we'll need to check if the input is valid and to convert string to int/double
+                String pName, pCost, pPrice, pQty, nameError, costError, priceError, qtyError;
+                double cos = Double.parseDouble(cost.getText());
+                double pri = Double.parseDouble(salesPrice.getText());
+                int qty = Integer.parseInt(quantity.getText());
+                boolean nameValid, costValid, priceValid, qtyValid;
+
+                //Checking if the users product name entry is valid
+                pName = productName.getText();
+                if (pName.matches("[A-Za-z]+") && pName != null) {
+                    nameValid = true;
+                    nameError = "";
+                } else {
+                    nameValid = false;
+                    nameError = "Product name must consist of characters A-Z";
+                }
+
+                // Checking if the users product cost entry is valid
+                pCost = cost.getText();
+                if (isNumeric(pCost) && pri > cos && pCost != null && pCost.trim().length() > 0) {
+                    costValid = true;
+                    costError = "";
+                    System.out.print(pCost.length());
+                } else {
+                    costValid = false;
+                    costError = "Cost must be less than price and not negative.";
+                }
+
+                // Checking if the users product price entry is valid
+                pPrice = salesPrice.getText();
+                if (isNumeric(pPrice) && pri > cos && pPrice != null) {
+                    priceValid = true;
+                    priceError = "";
+                } else {
+                    priceValid = false;
+                    priceError = "Sales price must be greater than cost and not negative";
+                }
+
+                // Checking if the users product quantity is valid
+                pQty = quantity.getText();
+                if (isNumeric(pQty) && qty > 0 && pQty != null) {
+                    qtyValid = true;
+                    qtyError = "";
+                } else {
+                    qtyValid = false;
+                    qtyError = "Quantity must be greater than 0";
+                }
+
+                // Check if all entries are valid, if yes create object and save to database, otherwise display error
+                if (nameValid && costValid && priceValid && qtyValid) {
+                    Product p = new Product(nextID(), productName.getText(), cos, pri, qty);
+                    Tracker.saveProdToDatabase(p);
+                    addStage.close();
+                } else {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText("Looks like a few fields need to be corrected.");
+                    alert.setContentText(nameError + "\n" + costError + "\n" + priceError + "\n" + qtyError);
+                    alert.showAndWait();
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
     }
 
     //Boolean to check the validity of users numeric entries
