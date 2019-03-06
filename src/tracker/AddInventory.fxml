@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tracker.AddInventoryController">
+<AnchorPane prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tracker.AddInventoryController">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="450.0">
         <columnConstraints>
@@ -26,7 +26,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="invBtnAdd" mnemonicParsing="false" onAction="#handleAddBtn" prefHeight="29.0" prefWidth="81.0" text="Add" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <Button fx:id="invBtnAdd" defaultButton="true" mnemonicParsing="false" onAction="#handleAddBtn" prefHeight="29.0" prefWidth="81.0" text="Add" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -41,7 +41,7 @@
                   <Insets left="30.0" />
                </padding>
             </Label>
-            <Label prefHeight="21.0" prefWidth="137.0" text="Product Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Label prefHeight="21.0" prefWidth="135.0" text="Product Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
@@ -89,7 +89,7 @@
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <Button fx:id="invBtnCancel" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="27.0" prefWidth="82.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+            <Button fx:id="invBtnCancel" cancelButton="true" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="27.0" prefWidth="82.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>

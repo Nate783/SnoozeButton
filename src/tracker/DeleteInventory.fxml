@@ -15,7 +15,7 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="invDelCancel" layoutX="240.0" layoutY="218.0" mnemonicParsing="false" onAction="#handleDelCancelButton" text="Cancel">
+      <Button fx:id="invDelCancel" cancelButton="true" layoutX="240.0" layoutY="218.0" mnemonicParsing="false" onAction="#handleDelCancelButton" text="Cancel">
          <font>
             <Font size="15.0" />
          </font></Button>
@@ -24,7 +24,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="prodLabel" alignment="CENTER" layoutX="143.0" layoutY="121.0" minWidth="155.0" prefHeight="21.0" prefWidth="155.0">
+      <Label fx:id="prodLabel" alignment="CENTER" layoutX="143.0" layoutY="121.0" minWidth="155.0" prefHeight="21.0" prefWidth="155.0" textFill="#d31313">
          <font>
             <Font size="15.0" />
          </font>

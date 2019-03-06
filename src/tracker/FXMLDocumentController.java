@@ -145,40 +145,47 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleDeleteClick(ActionEvent event) throws SQLException{  
-        
-        try {
-                       
-            // Show the dialog and wait until the user closes it
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Tracker.class.getResource("DeleteInventory.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+        if (invTable.getSelectionModel().getSelectedItem() != null) {
+            try {
 
-            // Create the dialog Stage.
-            Stage delStage = new Stage();
-            delStage.setTitle("Delete Item");
-            delStage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-delete-document-48.png")));
-            delStage.initModality(Modality.WINDOW_MODAL);
-            Window primaryStage = null;
-            delStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            delStage.setScene(scene);
+                // Show the dialog and wait until the user closes it
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Tracker.class.getResource("DeleteInventory.fxml"));
+                AnchorPane page = (AnchorPane) loader.load();
 
-            // Set the product into the controller.
-            DeleteController controller;
-            controller = loader.getController();
-            controller.setDelStage(delStage);
-            controller.initData(invTable.getSelectionModel().getSelectedItem());
-           
-            // Show the dialog and wait until the user closes it
-            delStage.showAndWait();
-            
-        } catch (Exception e) {
-            System.err.println(e);
-        } finally {
-            // after showing the dialog, refresh the table
-            invTable.setItems(getProducts());
+                // Create the dialog Stage.
+                Stage delStage = new Stage();
+                delStage.setTitle("Delete Item");
+                delStage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-delete-document-48.png")));
+                delStage.initModality(Modality.WINDOW_MODAL);
+                Window primaryStage = null;
+                delStage.initOwner(primaryStage);
+                Scene scene = new Scene(page);
+                delStage.setScene(scene);
+
+                // Set the product into the controller.
+                DeleteController controller;
+                controller = loader.getController();
+                controller.setDelStage(delStage);
+                controller.initData(invTable.getSelectionModel().getSelectedItem());
+
+                // Show the dialog and wait until the user closes it
+                delStage.showAndWait();
+
+            } catch (Exception e) {
+                System.err.println(e);
+            } finally {
+                // after showing the dialog, refresh the table
+                invTable.setItems(getProducts());
+                }
+            } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Selection required");
+            alert.setHeaderText("No item selected!");
+            alert.setContentText("Please select an item to delete.");
+            alert.showAndWait();
+            }
         }
-    }
     
     @FXML
     private void handleFilterClick(ActionEvent event) {
