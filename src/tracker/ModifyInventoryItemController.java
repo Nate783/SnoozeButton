@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -63,12 +65,13 @@ public class ModifyInventoryItemController implements Initializable {
         }
         
         sCost = txtCost.getText();
+        String errorMessage = "Please, enter a valid ";
         if(isNumeric(sCost)){
         cost = Double.parseDouble(txtCost.getText());
         costValid = true;
         }
         else{
-            System.err.println("Enter a valid number for the cost");
+            errorMessage += " cost ";
             costValid = false;
         }
         
@@ -78,7 +81,7 @@ public class ModifyInventoryItemController implements Initializable {
         priceValid = true;
         }
         else{
-            System.err.println("Enter a valid number for the price");
+            errorMessage += "price ";
             priceValid = false; 
         }
         sQty = txtQty.getText();
@@ -87,7 +90,7 @@ public class ModifyInventoryItemController implements Initializable {
         qtyValid = true;
         }
         else{
-            System.err.println("Enter a valid number for the quantity");
+            errorMessage += "quantity ";
             qtyValid = false;
         }
         
@@ -101,6 +104,13 @@ public class ModifyInventoryItemController implements Initializable {
         // after modifying the item, now you need to close the window.
         modifyStage.close();
     }
+        else{
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Input!");
+            alert.setHeaderText("You entered invalid input(s)");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+        }
     }
     
     @FXML
