@@ -3,15 +3,13 @@
  * Each line should be prefixed with  * 
  */
 package tracker;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -99,45 +97,64 @@ public class FilterButtonController implements Initializable {
         addStage.close();
     }
     public void handleApplyButton()throws SQLException{
-        //connect to the database
-        Connection conn = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
+        //input validation
         
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
-            statement = conn.createStatement();
-        //detect number of filters and display results     
+        //Detect filters and set the sql statement to match selected filters  
+        String temp;
         switch(filterCount){
             case 0:
                 //sql statement (display all)
-            resultSet = statement.executeQuery("SELECT * FROM products");
+            Tracker.sqlStatement = "SELECT * FROM products";
             case 1: 
+                //input validation
+                 if (FilterText1.getText().matches("[A-Za-z0-9]+")){
                 //sql statement
-            resultSet = statement.executeQuery("SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"\'");
+            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"%\'";
+            Tracker.sqlStatement=temp.replaceAll("CONTAINS", "LIKE");
                 break;
+                 }
+                 else{
+                     Alert alert = new Alert(AlertType.ERROR);
+                     alert.setTitle("Filter Error");
+                     alert.setHeaderText("Invalid Input");
+                     alert.setContentText("Filter Text MUST be alphanumeric");
+                     alert.showAndWait();
+                     break;
+                 }
             case 2:
+                //input validation
+                if (FilterText1.getText().matches("[A-Za-z0-9]+")&&FilterText2.getText().matches("[A-Za-z0-9]+")){
                 //sql statement
-            resultSet = statement.executeQuery("SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'"+FilterText2.getText()+"\'");
-                break;
+            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"%\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'"+FilterText2.getText()+"%\'";
+            Tracker.sqlStatement=temp.replaceAll("CONTAINS", "LIKE");
+            break;
+                }
+                 else{
+                     Alert alert = new Alert(AlertType.ERROR);
+                     alert.setTitle("Filter Error");
+                     alert.setHeaderText("Invalid Input");
+                     alert.setContentText("Filter Text MUST be alphanumeric");
+                     alert.showAndWait();
+                     break;
+                 }            
             case 3: 
+                //input validation
+                if (FilterText1.getText().matches("[A-Za-z0-9]+")&&FilterText2.getText().matches("[A-Za-z0-9]+")&&FilterText3.getText().matches("A-Za-z0-9+")){
                 //sql statement
-                resultSet = statement.executeQuery("SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'"+FilterText2.getText()+"\' "+AndOr2.getValue()+" "+FilterBox3.getValue()+" "+ModifierBox3.getValue()+" \'"+FilterText3.getText()+"\'");
+                temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"%\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'"+FilterText2.getText()+"%\' "+AndOr2.getValue()+" "+FilterBox3.getValue()+" "+ModifierBox3.getValue()+" \'"+FilterText3.getText()+"%\'";
+                Tracker.sqlStatement=temp.replaceAll("CONTAINS", "LIKE");
                 break;
+            }
+                 else{
+                     Alert alert = new Alert(AlertType.ERROR);
+                     alert.setTitle("Filter Error");
+                     alert.setHeaderText("Invalid Input");
+                     alert.setContentText("Filter Text MUST be alphanumeric");
+                     alert.showAndWait();
+                     break;
+                 } 
         }
-        } catch(SQLException e){
-            System.err.println(e);
-        }
-        //close connections
-        finally{
-        if (conn != null)
-        conn.close();
-        if(statement != null)
-        statement.close();
-        if(resultSet != null)
-        resultSet.close();
         addStage.close();
-        }
     }
     public void handleAdd1(){
         //adds the second line of filters and ensures the correct amount of filters
