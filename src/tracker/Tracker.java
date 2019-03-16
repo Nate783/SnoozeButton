@@ -22,7 +22,7 @@ import javafx.stage.Window;
 
 public class Tracker extends Application {
     
-    public static String sqlStatement = "SELECT * FROM products where cost > 4";
+    public static String sqlStatement = "SELECT * FROM products";
     
     @Override
     public void start(Stage stage) throws Exception {
