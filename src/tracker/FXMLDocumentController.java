@@ -224,6 +224,7 @@ public class FXMLDocumentController implements Initializable {
         invBtnFiltersReset.setVisible(false);
         
     }
+    
     public ObservableList<Product> getProducts() throws SQLException {
         // setup observable list
         ObservableList<Product> products = FXCollections.observableArrayList();
@@ -275,10 +276,6 @@ public class FXMLDocumentController implements Initializable {
         
         // return newly created observable list
         return products;
-    }
-
-    @FXML
-    private void handleResetClick(ActionEvent event) {
     }
 
 }
