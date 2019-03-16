@@ -22,6 +22,8 @@ import javafx.stage.Window;
 
 public class Tracker extends Application {
     
+    public static String sqlStatement = "SELECT * FROM products where cost > 4";
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
