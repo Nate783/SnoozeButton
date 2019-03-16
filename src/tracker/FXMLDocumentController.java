@@ -277,4 +277,8 @@ public class FXMLDocumentController implements Initializable {
         return products;
     }
 
+    @FXML
+    private void handleResetClick(ActionEvent event) {
+    }
+
 }
