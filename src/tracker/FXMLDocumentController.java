@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -45,6 +47,14 @@ public class FXMLDocumentController implements Initializable {
     @FXML private TableColumn<Product, Double> invColProdCost;
     @FXML private TableColumn<Product, Double> invColProdPrice;
     @FXML private TableColumn<Product, Integer> invColProdQty;
+    @FXML
+    private Button invBtnFiltersReset;
+    @FXML
+    private Label totalCpst;
+    @FXML
+    private Label totalSale;
+    @FXML
+    private Label totalStock;
     
     
     @Override
@@ -188,11 +198,22 @@ public class FXMLDocumentController implements Initializable {
         }
     
     @FXML
-    private void handleFilterClick(ActionEvent event) {
+    private void handleFilterClick(ActionEvent event) throws SQLException {
         try{
+            // @David - move filter window opening here.
             Filters();
-        }catch (Exception e){
+        } catch (Exception e){
             System.err.println(e);
+        } finally {
+            System.out.println(Tracker.sqlStatement);
+            invTable.setItems(getProducts());
+            
+            // TODO: write if that checks if "sql statement" is modified
+            // if not, do nothing, if yes, display reset button
+            if ( !Objects.equals(sqlStatement, "SELECT * FROM products") ) {
+                invBtnFiltersReset.setVisible(true);
+            }
+            
         }
     }
     
@@ -215,7 +236,7 @@ public class FXMLDocumentController implements Initializable {
            
             // create the sql statement and execute it
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM products");
+            resultSet = statement.executeQuery(Tracker.sqlStatement);
            
    
             // loop through the results and create products for each line
@@ -247,6 +268,10 @@ public class FXMLDocumentController implements Initializable {
         
         // return newly created observable list
         return products;
+    }
+
+    @FXML
+    private void handleResetClick(ActionEvent event) {
     }
 
 }
