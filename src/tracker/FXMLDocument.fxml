@@ -78,18 +78,6 @@
                   </ImageView>
                </graphic>
           </Tab>
-          <Tab>
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-pos-terminal-96.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-          </Tab>
             <Tab>
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -108,7 +96,7 @@
                               <Font size="45.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalStock" alignment="CENTER" layoutX="341.0" layoutY="554.0" text="0" textAlignment="CENTER">
+                        <Label fx:id="totalStock" alignment="CENTER" layoutX="227.0" layoutY="554.0" minWidth="255.0" prefWidth="255.0" text="0" textAlignment="CENTER">
                            <font>
                               <Font size="45.0" />
                            </font>

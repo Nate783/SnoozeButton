@@ -69,9 +69,11 @@ public class FXMLDocumentController implements Initializable {
         try {
             // get products for table
             invTable.setItems(getProducts());
+            totalStock.setText(String.valueOf(getTotalStock()) + " items");
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }    
     
     @FXML
@@ -296,4 +298,37 @@ public class FXMLDocumentController implements Initializable {
         return products;
     }
 
+    private int getTotalStock() throws SQLException {
+        int stockCount = 0;
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            // connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+
+            // create statement and execute it
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("select sum(quantity) as \"Total Quantity\" from products");
+
+            // set the max value
+            resultSet.next();
+            stockCount = resultSet.getInt("Total Quantity");
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            // close all connections
+            if (conn != null) {
+                conn.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+        return stockCount;
+    }
 }
