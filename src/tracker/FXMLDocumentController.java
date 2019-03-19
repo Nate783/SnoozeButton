@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +27,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -56,6 +58,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label totalStock;
     
+    @FXML
+    private Tab tabReport;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,13 +71,13 @@ public class FXMLDocumentController implements Initializable {
         invColProdPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         invColProdQty.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
         
+        // since the inventory is the default tab, go ahead and get it's data
         try {
-            // get products for table
             invTable.setItems(getProducts());
-            totalStock.setText(String.valueOf(getTotalStock()) + " items");
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
         
     }    
     
@@ -244,7 +249,7 @@ public class FXMLDocumentController implements Initializable {
         invBtnFiltersReset.setVisible(false);
         
     }
-    
+        
     public ObservableList<Product> getProducts() throws SQLException {
         // setup observable list
         ObservableList<Product> products = FXCollections.observableArrayList();
@@ -331,4 +336,16 @@ public class FXMLDocumentController implements Initializable {
         }
         return stockCount;
     }
+
+    @FXML
+    private void handleTabChange(Event event) throws SQLException {
+        // when the tabs change, check if the report tab is now selected
+        if (tabReport.isSelected()) {
+            // if so, go get the total stock data
+            totalStock.setText(String.valueOf(getTotalStock()) + " items");
+        } 
+        
+    }
+
+
 }
