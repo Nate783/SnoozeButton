@@ -8,8 +8,6 @@ Sophomore Project
 * Wakhiel Moshon
 
 ## SQL Examples
-Connection string: `jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull`
-You'll need to pass the username and password. 
 
 Read all items in the products table:
 ```sql
