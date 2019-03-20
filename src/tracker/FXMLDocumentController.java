@@ -336,6 +336,40 @@ public class FXMLDocumentController implements Initializable {
         }
         return stockCount;
     }
+	
+	private double getTotalCost() throws SQLException {
+        double costValue = 0;
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            // connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+
+            // create statement and execute it
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("select sum(cost) as \"Total Cost\" from products");
+
+            // set the max value
+            resultSet.next();
+            costValue = resultSet.getDouble("Total Cost");
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            // close all connections
+            if (conn != null) {
+                conn.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+        return costValue;
+    }
 
     @FXML
     private void handleTabChange(Event event) throws SQLException {
@@ -343,6 +377,7 @@ public class FXMLDocumentController implements Initializable {
         if (tabReport.isSelected()) {
             // if so, go get the total stock data
             totalStock.setText(String.valueOf(getTotalStock()) + " items");
+			totalCpst.setText(String.valueOf("$" + getTotalCost()));
         } 
         
     }
