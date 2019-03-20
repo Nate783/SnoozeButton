@@ -348,7 +348,7 @@ public class FXMLDocumentController implements Initializable {
 
             // create statement and execute it
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("select sum(cost) as \"Total Cost\" from products");
+            resultSet = statement.executeQuery("select sum(Cost * Quantity) as \"Total Cost\" from products");
 
             // set the max value
             resultSet.next();
