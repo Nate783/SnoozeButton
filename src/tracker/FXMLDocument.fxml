@@ -101,6 +101,11 @@
                               <Font size="45.0" />
                            </font>
                         </Label>
+                        <Label fx:id="lowStock" alignment="CENTER" layoutX="824.0" layoutY="554.0" text="0" textAlignment="CENTER">
+                           <font>
+                              <Font size="45.0" />
+                           </font>
+                        </Label>
                         <Label alignment="CENTER" layoutX="271.0" layoutY="28.0" text="Total Cost Value" textAlignment="CENTER">
                            <font>
                               <Font size="23.0" />
