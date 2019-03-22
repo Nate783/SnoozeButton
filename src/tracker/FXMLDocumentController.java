@@ -57,7 +57,8 @@ public class FXMLDocumentController implements Initializable {
     private Label totalSale;
     @FXML
     private Label totalStock;
-    
+    @FXML
+    private Label lowStock;
     @FXML
     private Tab tabReport;
     
@@ -74,6 +75,7 @@ public class FXMLDocumentController implements Initializable {
         // since the inventory is the default tab, go ahead and get it's data
         try {
             invTable.setItems(getProducts());
+		lowStock.setText(String.valueOf(getLowStock()) + " items");
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -371,6 +373,41 @@ public class FXMLDocumentController implements Initializable {
         return costValue;
     }
 
+	private int getLowStock() throws SQLException {
+        int lowStock = 0;
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            // connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+
+            // create statement and execute it to find out which items have less than 5 in stock 
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT count(quantity) as \"Low Stock\" from products where quantity < 5");
+
+            // Set the number of low stock items equal to lowStock
+            resultSet.next();
+            lowStock = resultSet.getInt("Low Stock");
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            // close all connections
+            if (conn != null) {
+                conn.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+        //pass the value to the label
+        return lowStock;
+    }
+	
     @FXML
     private void handleTabChange(Event event) throws SQLException {
         // when the tabs change, check if the report tab is now selected
