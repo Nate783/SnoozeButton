@@ -56,7 +56,7 @@ public class AddInventoryController {
 
                 //Checking if the users product name entry is valid
                 pName = productName.getText();
-                if (pName.matches("[A-Za-z]+") && pName != null) {
+                if (pName.matches("[A-Za-z\\s]*$") && pName != null) {
                     nameValid = true;
                     nameError = "";
                 } else {
