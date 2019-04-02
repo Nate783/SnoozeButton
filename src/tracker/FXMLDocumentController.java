@@ -1,4 +1,4 @@
-/*
+ /*
  * CSI 2999 - Sophomore Project
  * SBTracker
  */
@@ -449,6 +449,32 @@ public class FXMLDocumentController implements Initializable {
         //pass the value to the label
         return lowStock;
     }
+        @FXML
+        private void handleLowStockClick(){
+            try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("LowStockView.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            
+            Stage lowStockStage = new Stage();
+            lowStockStage.setTitle("Low Stock Items");
+            lowStockStage.initModality(Modality.WINDOW_MODAL);
+            Window primaryStage = null;
+            lowStockStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            lowStockStage.setScene(scene);
+            
+            FilterButtonController controller;
+            controller = loader.getController();
+            controller.setFilterStage(lowStockStage);
+            //controller.setPerson(person);
+            
+            lowStockStage.showAndWait();
+           
+        } catch (Exception e){
+            System.err.println(e);
+        }
+        }
 	
     @FXML
     private void handleTabChange(Event event) throws SQLException {

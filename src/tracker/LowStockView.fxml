@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tracker.LowStockViewController">
+  <children>
+    <TableView layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
+      <columns>
+        <TableColumn prefWidth="75.0" text="Product ID" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="195.0" text="Product Name" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="71.0" text="Cost" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="89.0" text="Sales Price" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="171.0" text="Quantity on Hand" />
+      </columns>
+    </TableView>
+  </children>
+</AnchorPane>
