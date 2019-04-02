@@ -37,6 +37,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import static tracker.Tracker.*;
+import java.text.DecimalFormat;
 
 
 public class FXMLDocumentController implements Initializable {
@@ -61,6 +62,7 @@ public class FXMLDocumentController implements Initializable {
     private Label lowStock;
     @FXML
     private Tab tabReport;
+    
     
     
     @Override
@@ -339,7 +341,9 @@ public class FXMLDocumentController implements Initializable {
         return stockCount;
     }
 	
-	private double getTotalCost() throws SQLException {
+	private String getTotalCost() throws SQLException {
+        DecimalFormat df2 = new DecimalFormat("#,###.00"); //2 decimal format
+        String cost = "";
         double costValue = 0;
         Connection conn = null;
         Statement statement = null;
@@ -370,7 +374,45 @@ public class FXMLDocumentController implements Initializable {
                 resultSet.close();
             }
         }
-        return costValue;
+        cost = (df2.format(costValue));
+        return cost;
+    }
+        
+    private String getTotalSale() throws SQLException {
+        DecimalFormat df2 = new DecimalFormat("#,###.##"); //2 decimal format
+        double saleValue = 0;
+        String sales = "";
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            // connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+
+            // create statement and execute it
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("select sum(Price * Quantity) as \"Total Sale\" from products");
+
+            // set the max value
+            resultSet.next();
+            saleValue = resultSet.getDouble("Total Sale"); 
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            // close all connections
+            if (conn != null) {
+                conn.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+        sales = df2.format(saleValue);
+        return sales;
     }
 
 	private int getLowStock() throws SQLException {
@@ -414,7 +456,8 @@ public class FXMLDocumentController implements Initializable {
         if (tabReport.isSelected()) {
             // if so, go get the total stock data
             totalStock.setText(String.valueOf(getTotalStock()) + " items");
-			totalCpst.setText(String.valueOf("$" + getTotalCost()));
+            totalCpst.setText(("$" + getTotalCost()));
+            totalSale.setText(("$" + getTotalSale()));
         } 
         
     }
