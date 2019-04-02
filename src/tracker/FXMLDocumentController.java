@@ -77,7 +77,7 @@ public class FXMLDocumentController implements Initializable {
         // since the inventory is the default tab, go ahead and get it's data
         try {
             invTable.setItems(getProducts());
-		lowStock.setText(String.valueOf(getLowStock()) + " items");
+            
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -458,6 +458,7 @@ public class FXMLDocumentController implements Initializable {
             totalStock.setText(String.valueOf(getTotalStock()) + " items");
             totalCpst.setText(("$" + getTotalCost()));
             totalSale.setText(("$" + getTotalSale()));
+            lowStock.setText(String.valueOf(getLowStock()) + " items");
         } 
         
     }
