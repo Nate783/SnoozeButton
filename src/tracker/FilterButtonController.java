@@ -105,7 +105,7 @@ public class FilterButtonController implements Initializable {
                 //input validation
                  if (FilterText1.getText().matches("[A-Za-z\\s]*$")){
                 //sql statement
-            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"%\'";
+            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'%"+FilterText1.getText()+"%\'";
             Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
                 break;
                  }
@@ -121,7 +121,7 @@ public class FilterButtonController implements Initializable {
                 //input validation
                 if (FilterText1.getText().matches("[A-Za-z\\s]*$")&&FilterText2.getText().matches("^[a-zA-Z0-9. ]*$")){
                 //sql statement
-            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"%\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'"+FilterText2.getText()+"%\'";
+            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+"%\""+FilterText1.getText()+"%\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'"+"%\""+FilterText2.getText()+"%\'";
             Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
             break;
                 }
@@ -137,7 +137,7 @@ public class FilterButtonController implements Initializable {
                 //input validation
                 if (FilterText1.getText().matches("[A-Za-z\\s]*$")&&FilterText2.getText().matches("^[a-zA-Z0-9. ]*$")&&FilterText3.getText().matches("^[a-zA-Z0-9. ]*$")){
                 //sql statement
-                temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+FilterText1.getText()+"%\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'"+FilterText2.getText()+"%\' "+AndOr2.getValue()+" "+FilterBox3.getValue()+" "+ModifierBox3.getValue()+" \'"+FilterText3.getText()+"%\'";
+                temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'%"+FilterText1.getText()+"%\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'%"+FilterText2.getText()+"%\' "+AndOr2.getValue()+" "+FilterBox3.getValue()+" "+ModifierBox3.getValue()+" \'%"+FilterText3.getText()+"%\'";
                 Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
                 break;
             }
