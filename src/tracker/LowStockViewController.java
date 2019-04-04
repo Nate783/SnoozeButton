@@ -31,40 +31,42 @@ public class LowStockViewController  {
     @FXML
     private TableView<Product> lowInvView;
     
-    @FXML
-    private TableColumn<Product, Integer> lowInvColProdUID;
-    
-    @FXML
-    private TableColumn<Product, String> lowInvColProdName;
-    
-    @FXML
-    private TableColumn<Product, Double> lowInvColProdCost;
-    
-    @FXML
-    private TableColumn<Product, Double> lowInvColProdPrice;
-    
-    @FXML
-    private TableColumn<Product, Integer> lowInvColProdQty;
+    @FXML private TableView<Product> lowInvTable;
+    @FXML private TableColumn<Product, Integer> lowInvColProdUID;
+    @FXML private TableColumn<Product, String> lowInvColProdName;
+    @FXML private TableColumn<Product, Double> lowInvColProdCost;
+    @FXML private TableColumn<Product, Double> lowInvColProdPrice;
+    @FXML private TableColumn<Product, Integer> lowInvColProdQty;
     
     @FXML
     private Stage lowStockStage;
     
+        
+    @FXML
+    public void initData() {
+        lowInvColProdUID.setCellValueFactory(new PropertyValueFactory("Id"));
+        lowInvColProdName.setCellValueFactory(new PropertyValueFactory("name"));
+        lowInvColProdCost.setCellValueFactory(new PropertyValueFactory("cost"));
+        lowInvColProdPrice.setCellValueFactory(new PropertyValueFactory("price"));
+        lowInvColProdQty.setCellValueFactory(new PropertyValueFactory("qtyOnHand"));
+    }
     
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        lowInvColProdUID.setCellValueFactory(new PropertyValueFactory<>("Id"));
-//        lowInvColProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        lowInvColProdCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
-//        lowInvColProdPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-//        lowInvColProdQty.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
-//        try {
-//            lowInvView.setItems(getLowProducts());
-//        } catch (SQLException ex) {
-//            System.out.println(ex);
-//           
-//        }
-//    }
+    @FXML
+    public void setLowStockStage(Stage lowStockStage){
+        this.lowStockStage = lowStockStage;
+        System.out.println("set stage done");
+        
+        
+        System.out.println("trying to set items");
+        try {
+            lowInvView.setItems(getLowProducts());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("finishing set items");
+    }
     
+    @FXML
     public ObservableList<Product> getLowProducts() throws SQLException {
         // setup observable list
         ObservableList<Product> lowStockProducts = FXCollections.observableArrayList();
@@ -115,30 +117,6 @@ public class LowStockViewController  {
        
     }    
     
-    @FXML
-    public void initData() {
-        System.out.println("trying to init data");
-        lowInvColProdUID.setCellValueFactory(new PropertyValueFactory("Id"));
-        lowInvColProdName.setCellValueFactory(new PropertyValueFactory("name"));
-        lowInvColProdCost.setCellValueFactory(new PropertyValueFactory("cost"));
-        lowInvColProdPrice.setCellValueFactory(new PropertyValueFactory("price"));
-        lowInvColProdQty.setCellValueFactory(new PropertyValueFactory("qtyOnHand"));
-        System.out.println("finished init data");
-    }
     
-    @FXML
-    public void setLowStockStage(Stage lowStockStage){
-        this.lowStockStage = lowStockStage;
-        System.out.println("set stage done");
-        
-        
-        System.out.println("trying to set items");
-        try {
-            lowInvView.setItems(getLowProducts());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        System.out.println("finishing set items");
-    }
     
 }
