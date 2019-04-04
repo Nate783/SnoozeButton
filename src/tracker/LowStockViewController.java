@@ -27,30 +27,47 @@ import javafx.stage.Stage;
  *
  * @author David
  */
-public class LowStockViewController implements Initializable {
-    @FXML private TableView<Product> lowInvView;
-    @FXML private TableColumn<Product, Integer> lowInvColProdUID;
-    @FXML private TableColumn<Product, String> lowInvColProdName;
-    @FXML private TableColumn<Product, Double> lowInvColProdCost;
-    @FXML private TableColumn<Product, Double> lowInvColProdPrice;
-    @FXML private TableColumn<Product, Integer> lowInvColProdQty;
-    @FXML private Stage lowStage;
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        lowInvColProdUID.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        lowInvColProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        lowInvColProdCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        lowInvColProdPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        lowInvColProdQty.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
-        try {
-            lowInvView.setItems(getLowProducts());
-        } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+public class LowStockViewController  {
+    @FXML
+    private TableView<Product> lowInvView;
+    
+    @FXML
+    private TableColumn<Product, Integer> lowInvColProdUID;
+    
+    @FXML
+    private TableColumn<Product, String> lowInvColProdName;
+    
+    @FXML
+    private TableColumn<Product, Double> lowInvColProdCost;
+    
+    @FXML
+    private TableColumn<Product, Double> lowInvColProdPrice;
+    
+    @FXML
+    private TableColumn<Product, Integer> lowInvColProdQty;
+    
+    @FXML
+    private Stage lowStockStage;
+    
+    
+//    @Override
+//    public void initialize(URL url, ResourceBundle rb) {
+//        lowInvColProdUID.setCellValueFactory(new PropertyValueFactory<>("Id"));
+//        lowInvColProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
+//        lowInvColProdCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+//        lowInvColProdPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+//        lowInvColProdQty.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+//        try {
+//            lowInvView.setItems(getLowProducts());
+//        } catch (SQLException ex) {
+//            System.out.println(ex);
+//           
+//        }
+//    }
+    
     public ObservableList<Product> getLowProducts() throws SQLException {
         // setup observable list
-        ObservableList<Product> products = FXCollections.observableArrayList();
+        ObservableList<Product> lowStockProducts = FXCollections.observableArrayList();
         
         // read from sql and loop through list
         
@@ -63,11 +80,11 @@ public class LowStockViewController implements Initializable {
             conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
             // create the sql statement and execute it
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Products WHERE Quanitiy < 5");
+            resultSet = statement.executeQuery("SELECT * FROM products WHERE Quantity < 5");
            
    
             // loop through the results and create products for each line
-            while (resultSet.next()) {products.add(new Product(
+            while (resultSet.next()) {lowStockProducts.add(new Product(
                         resultSet.getInt("ID"), 
                         resultSet.getString("Name"), 
                         resultSet.getDouble("Cost"), 
@@ -94,11 +111,34 @@ public class LowStockViewController implements Initializable {
         }
         
         // return newly created observable list
-        return products;
+        return lowStockProducts;
        
     }    
-        public void setLowStockStage(Stage lowStockStage){
-        this.lowStage = lowStockStage;
+    
+    @FXML
+    public void initData() {
+        System.out.println("trying to init data");
+        lowInvColProdUID.setCellValueFactory(new PropertyValueFactory("Id"));
+        lowInvColProdName.setCellValueFactory(new PropertyValueFactory("name"));
+        lowInvColProdCost.setCellValueFactory(new PropertyValueFactory("cost"));
+        lowInvColProdPrice.setCellValueFactory(new PropertyValueFactory("price"));
+        lowInvColProdQty.setCellValueFactory(new PropertyValueFactory("qtyOnHand"));
+        System.out.println("finished init data");
+    }
+    
+    @FXML
+    public void setLowStockStage(Stage lowStockStage){
+        this.lowStockStage = lowStockStage;
+        System.out.println("set stage done");
+        
+        
+        System.out.println("trying to set items");
+        try {
+            lowInvView.setItems(getLowProducts());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("finishing set items");
     }
     
 }

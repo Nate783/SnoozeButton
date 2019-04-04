@@ -38,6 +38,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import static tracker.Tracker.*;
 import java.text.DecimalFormat;
+import javafx.scene.text.Font;
 
 
 public class FXMLDocumentController implements Initializable {
@@ -59,9 +60,17 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label totalStock;
     @FXML
-    private Label lowStock;
+    private Button lowStock;
     @FXML
     private Tab tabReport;
+    @FXML
+    private Tab tabInventory;
+    @FXML
+    private Font x1;
+    @FXML
+    private Font x2;
+    @FXML
+    private Font x3;
     
     
     
@@ -79,7 +88,7 @@ public class FXMLDocumentController implements Initializable {
             invTable.setItems(getProducts());
             
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
             
         
@@ -449,8 +458,9 @@ public class FXMLDocumentController implements Initializable {
         //pass the value to the label
         return lowStock;
     }
-        @FXML
-        private void handleLowStockClick(){
+        
+    @FXML
+    private void handleLowStockClick(){
             try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Tracker.class.getResource("LowStockView.fxml"));
@@ -464,16 +474,16 @@ public class FXMLDocumentController implements Initializable {
             Scene scene = new Scene(page);
             lowStockStage.setScene(scene);
             
-            FilterButtonController controller;
+            LowStockViewController controller;
             controller = loader.getController();
-            controller.setFilterStage(lowStockStage);
-            //controller.setPerson(person);
+            controller.setLowStockStage(lowStockStage);
+            
             
             lowStockStage.showAndWait();
            
-        } catch (Exception e){
-            System.err.println(e);
-        }
+            } catch (Exception e){
+                System.err.println(e);
+            }
         }
 	
     @FXML
@@ -487,6 +497,37 @@ public class FXMLDocumentController implements Initializable {
             lowStock.setText(String.valueOf(getLowStock()) + " items");
         } 
         
+    }
+
+    @FXML
+    private void handleOptionsClick(ActionEvent event) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Tracker.class.getResource("Options.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage optionsStage = new Stage();
+            
+            optionsStage.setTitle("Options");
+            optionsStage.initModality(Modality.WINDOW_MODAL);
+            optionsStage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-add-property-48.png")));
+            Window primaryStage = null;
+            optionsStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            optionsStage.setScene(scene);
+
+            // Set the person into the controller.
+            OptionsController controller;
+            controller = loader.getController();
+            controller.setOptionsStage(optionsStage);
+            
+            // Show the dialog and wait until the user closes it
+            optionsStage.showAndWait();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
 
