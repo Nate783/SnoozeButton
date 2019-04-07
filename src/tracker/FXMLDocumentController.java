@@ -39,6 +39,7 @@ import javafx.stage.Window;
 import static tracker.Tracker.*;
 import java.text.DecimalFormat;
 import javafx.scene.text.Font;
+import javafx.scene.control.MenuItem;
 
 
 public class FXMLDocumentController implements Initializable {
@@ -71,6 +72,12 @@ public class FXMLDocumentController implements Initializable {
     private Font x2;
     @FXML
     private Font x3;
+    @FXML
+    private MenuItem menuBtn;
+    @FXML
+    private MenuItem menuItem;
+    @FXML
+    private MenuItem menuAbout;
     
     
     
@@ -529,6 +536,34 @@ public class FXMLDocumentController implements Initializable {
         } catch (Exception e) {
             System.err.println(e);
         }
+    }
+	    @FXML
+    private void handleAboutClick(ActionEvent event) throws SQLException {
+
+        try {
+            Alert alert = new Alert(AlertType.INFORMATION);
+
+            alert.setTitle("About");
+
+            alert.setHeaderText("Tracker 1.0");
+
+            String s = "Build Information:\n Version 1.0 \n Date: 2019-04-02\n\n © 2019, Snoozebutton Industries";
+
+            alert.setContentText(s);
+
+            alert.show();
+
+        } catch (Exception e) {
+            System.out.print(e);
+
+        }
+    }
+
+    @FXML
+    private void handleCloseClick(ActionEvent event) {
+
+        Platform.exit();
+
     }
 
 
