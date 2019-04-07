@@ -43,17 +43,23 @@ import javafx.application.Platform;
 import javafx.scene.text.Font;
 import javafx.scene.control.MenuItem;
 
-
 public class FXMLDocumentController implements Initializable {
-    
-    @FXML private Button invBtnAddToInventory, invBtnModify, invBtnDelete, invBtnFilters;
-    
-    @FXML private TableView<Product> invTable;
-    @FXML private TableColumn<Product, Integer> invColProdUID;
-    @FXML private TableColumn<Product, String> invColProdName;
-    @FXML private TableColumn<Product, Double> invColProdCost;
-    @FXML private TableColumn<Product, Double> invColProdPrice;
-    @FXML private TableColumn<Product, Integer> invColProdQty;
+
+    @FXML
+    private Button invBtnAddToInventory, invBtnModify, invBtnDelete, invBtnFilters;
+
+    @FXML
+    private TableView<Product> invTable;
+    @FXML
+    private TableColumn<Product, Integer> invColProdUID;
+    @FXML
+    private TableColumn<Product, String> invColProdName;
+    @FXML
+    private TableColumn<Product, Double> invColProdCost;
+    @FXML
+    private TableColumn<Product, Double> invColProdPrice;
+    @FXML
+    private TableColumn<Product, Integer> invColProdQty;
     @FXML
     private Button invBtnFiltersReset;
     @FXML
@@ -80,9 +86,7 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem menuItem;
     @FXML
     private MenuItem menuAbout;
-    
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // prepare columns in table
@@ -91,18 +95,17 @@ public class FXMLDocumentController implements Initializable {
         invColProdCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         invColProdPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         invColProdQty.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
-        
+
         // since the inventory is the default tab, go ahead and get it's data
         try {
             invTable.setItems(getProducts());
-            
+
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-            
-        
-    }    
-    
+
+    }
+
     @FXML
     private void handleAddClick(ActionEvent event) throws SQLException {
         try {
@@ -113,7 +116,7 @@ public class FXMLDocumentController implements Initializable {
 
             // Create the dialog Stage.
             Stage addStage = new Stage();
-            
+
             addStage.setTitle("Add Inventory");
             addStage.initModality(Modality.WINDOW_MODAL);
             addStage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-add-property-48.png")));
@@ -126,7 +129,7 @@ public class FXMLDocumentController implements Initializable {
             AddInventoryController controller;
             controller = loader.getController();
             controller.setAddStage(addStage);
-            
+
             // Show the dialog and wait until the user closes it
             addStage.showAndWait();
         } catch (Exception e) {
@@ -135,7 +138,7 @@ public class FXMLDocumentController implements Initializable {
             invTable.setItems(getProducts());
         }
     }
-    
+
     @FXML
     private void handleModifyClick(ActionEvent event) throws SQLException {
         if (invTable.getSelectionModel().getSelectedItem() != null) {
@@ -162,7 +165,6 @@ public class FXMLDocumentController implements Initializable {
                 controller.setModifyStage(modifyStage);
                 controller.initData(invTable.getSelectionModel().getSelectedItem());
 
-
                 // Show the dialog and wait until the user closes it
                 modifyStage.showAndWait();
 
@@ -178,12 +180,11 @@ public class FXMLDocumentController implements Initializable {
             alert.setContentText("You must select an item to modify.");
             alert.showAndWait();
         }
-        
-        
+
     }
-    
+
     @FXML
-    private void handleDeleteClick(ActionEvent event) throws SQLException{  
+    private void handleDeleteClick(ActionEvent event) throws SQLException {
         if (invTable.getSelectionModel().getSelectedItem() != null) {
             try {
 
@@ -216,24 +217,24 @@ public class FXMLDocumentController implements Initializable {
             } finally {
                 // after showing the dialog, refresh the table
                 invTable.setItems(getProducts());
-                }
-            } else {
+            }
+        } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Selection required");
             alert.setHeaderText("No item selected!");
             alert.setContentText("Please select an item to delete.");
             alert.showAndWait();
-            }
         }
-    
+    }
+
     @FXML
     private void handleFilterClick(ActionEvent event) throws SQLException {
-        try{
+        try {
             // @David - move filter window opening here.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Tracker.class.getResource("FilterButton.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
-            
+
             Stage filterStage = new Stage();
             filterStage.setTitle("Set Filters");
             filterStage.initModality(Modality.WINDOW_MODAL);
@@ -241,86 +242,81 @@ public class FXMLDocumentController implements Initializable {
             filterStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             filterStage.setScene(scene);
-            
+
             FilterButtonController controller;
             controller = loader.getController();
             controller.setFilterStage(filterStage);
             //controller.setPerson(person);
-            
+
             filterStage.showAndWait();
-           
-        } catch (Exception e){
+
+        } catch (Exception e) {
             System.err.println(e);
         } finally {
             System.out.println(Tracker.sqlStatement);
             invTable.setItems(getProducts());
-            
+
             // TODO: write if that checks if "sql statement" is modified
             // if not, do nothing, if yes, display reset button
-            if ( !Objects.equals(sqlStatement, "SELECT * FROM products") ) {
+            if (!Objects.equals(sqlStatement, "SELECT * FROM products")) {
                 invBtnFiltersReset.setVisible(true);
             }
-            
+
         }
     }
-    
+
     @FXML
     private void handleResetClick(ActionEvent event) throws SQLException {
         sqlStatement = "SELECT * FROM products";
         invTable.setItems(getProducts());
         invBtnFiltersReset.setVisible(false);
-        
+
     }
-        
+
     public ObservableList<Product> getProducts() throws SQLException {
         // setup observable list
         ObservableList<Product> products = FXCollections.observableArrayList();
-        
+
         // read from sql and loop through list
-        
         // setup the SQL variables
         Connection conn = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        
-        
-        try{
+
+        try {
             // connect to the DB
             conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
-           
-           
+
             // create the sql statement and execute it
             statement = conn.createStatement();
             resultSet = statement.executeQuery(Tracker.sqlStatement);
-           
-   
+
             // loop through the results and create products for each line
-            while (resultSet.next()) {products.add(new Product(
-                        resultSet.getInt("ID"), 
-                        resultSet.getString("Name"), 
-                        resultSet.getDouble("Cost"), 
-                        resultSet.getDouble("Price"), 
+            while (resultSet.next()) {
+                products.add(new Product(
+                        resultSet.getInt("ID"),
+                        resultSet.getString("Name"),
+                        resultSet.getDouble("Cost"),
+                        resultSet.getDouble("Price"),
                         resultSet.getInt("Quantity")
-                        )
+                )
                 );
             }
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
-        finally {
+        } finally {
             // clean up
-            if(conn!= null){
+            if (conn != null) {
                 conn.close();
             }
-            if(statement != null){
+            if (statement != null) {
                 statement.close();
             }
-            if(resultSet!= null){
+            if (resultSet != null) {
                 resultSet.close();
-            }  
+            }
         }
-        
+
         // return newly created observable list
         return products;
     }
@@ -358,8 +354,8 @@ public class FXMLDocumentController implements Initializable {
         }
         return stockCount;
     }
-	
-	private String getTotalCost() throws SQLException {
+
+    private String getTotalCost() throws SQLException {
         DecimalFormat df2 = new DecimalFormat("#,###.00"); //2 decimal format
         String cost = "";
         double costValue = 0;
@@ -395,7 +391,7 @@ public class FXMLDocumentController implements Initializable {
         cost = (df2.format(costValue));
         return cost;
     }
-        
+
     private String getTotalSale() throws SQLException {
         DecimalFormat df2 = new DecimalFormat("#,###.##"); //2 decimal format
         double saleValue = 0;
@@ -413,7 +409,7 @@ public class FXMLDocumentController implements Initializable {
 
             // set the max value
             resultSet.next();
-            saleValue = resultSet.getDouble("Total Sale"); 
+            saleValue = resultSet.getDouble("Total Sale");
 
         } catch (SQLException e) {
             System.err.println(e);
@@ -433,7 +429,7 @@ public class FXMLDocumentController implements Initializable {
         return sales;
     }
 
-	private int getLowStock() throws SQLException {
+    private int getLowStock() throws SQLException {
         int lowStock = 0;
         Connection conn = null;
         Statement statement = null;
@@ -467,14 +463,14 @@ public class FXMLDocumentController implements Initializable {
         //pass the value to the label
         return lowStock;
     }
-        
+
     @FXML
-    private void handleLowStockClick(){
-            try{
+    private void handleLowStockClick() {
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Tracker.class.getResource("LowStockView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
-            
+
             Stage lowStockStage = new Stage();
             lowStockStage.setTitle("Low Stock Items");
             lowStockStage.initModality(Modality.WINDOW_MODAL);
@@ -482,20 +478,19 @@ public class FXMLDocumentController implements Initializable {
             lowStockStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             lowStockStage.setScene(scene);
-            
+
             LowStockViewController controller;
             controller = loader.getController();
             controller.initData();
             controller.setLowStockStage(lowStockStage);
-            
-            
+
             lowStockStage.showAndWait();
-           
-            } catch (Exception e){
-                System.err.println(e);
-            }
+
+        } catch (Exception e) {
+            System.err.println(e);
         }
-	
+    }
+
     @FXML
     private void handleTabChange(Event event) throws SQLException {
         // when the tabs change, check if the report tab is now selected
@@ -505,8 +500,8 @@ public class FXMLDocumentController implements Initializable {
             totalCpst.setText(("$" + getTotalCost()));
             totalSale.setText(("$" + getTotalSale()));
             lowStock.setText(String.valueOf(getLowStock()) + " items");
-        } 
-        
+        }
+
     }
 
     @FXML
@@ -519,7 +514,7 @@ public class FXMLDocumentController implements Initializable {
 
             // Create the dialog Stage.
             Stage optionsStage = new Stage();
-            
+
             optionsStage.setTitle("Options");
             optionsStage.initModality(Modality.WINDOW_MODAL);
             optionsStage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons8-add-property-48.png")));
@@ -532,41 +527,42 @@ public class FXMLDocumentController implements Initializable {
             OptionsController controller;
             controller = loader.getController();
             controller.setOptionsStage(optionsStage);
-            
+
             // Show the dialog and wait until the user closes it
             optionsStage.showAndWait();
         } catch (Exception e) {
             System.err.println(e);
         }
     }
-	    @FXML
+
+    @FXML // When the menubar About button is clicked, this handler will execute
     private void handleAboutClick(ActionEvent event) throws SQLException {
 
         try {
+            //This will create a new information alert
             Alert alert = new Alert(AlertType.INFORMATION);
-
+            //This sets the title of your alert box
             alert.setTitle("About");
-
+            //This sets the header of your alert box
             alert.setHeaderText("Tracker 1.0");
-
+            //Create a string of everything you want your alert to display
             String s = "Build Information:\n Version 1.0 \n Date: 2019-04-02\n\n © 2019, Snoozebutton Industries";
-
+            //This sets the content equal to your string
             alert.setContentText(s);
-
+            //This will physically show your alert
             alert.show();
-
         } catch (Exception e) {
+            //If something went wrong print out the error
             System.out.print(e);
 
         }
     }
 
-    @FXML
+    @FXML // When the menubar Close button is clicked, this handler will execute
     private void handleCloseClick(ActionEvent event) {
-
+        //Platform.exit(); kills the application, requires a seperate package import
         Platform.exit();
 
     }
-
 
 }
