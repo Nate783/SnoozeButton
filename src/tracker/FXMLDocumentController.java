@@ -1,4 +1,5 @@
- /*
+
+/*
  * CSI 2999 - Sophomore Project
  * SBTracker
  */
@@ -38,6 +39,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import static tracker.Tracker.*;
 import java.text.DecimalFormat;
+import javafx.application.Platform;
 import javafx.scene.text.Font;
 import javafx.scene.control.MenuItem;
 
