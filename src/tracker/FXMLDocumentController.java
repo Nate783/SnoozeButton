@@ -481,7 +481,6 @@ public class FXMLDocumentController implements Initializable {
 
             LowStockViewController controller;
             controller = loader.getController();
-            controller.initData();
             controller.setLowStockStage(lowStockStage);
 
             lowStockStage.showAndWait();

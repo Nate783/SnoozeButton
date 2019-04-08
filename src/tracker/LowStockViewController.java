@@ -41,32 +41,31 @@ public class LowStockViewController  {
     @FXML
     private Stage lowStockStage;
     
-        
-    @FXML
-    public void initData() {
-        lowInvColProdUID.setCellValueFactory(new PropertyValueFactory("Id"));
-        lowInvColProdName.setCellValueFactory(new PropertyValueFactory("name"));
-        lowInvColProdCost.setCellValueFactory(new PropertyValueFactory("cost"));
-        lowInvColProdPrice.setCellValueFactory(new PropertyValueFactory("price"));
-        lowInvColProdQty.setCellValueFactory(new PropertyValueFactory("qtyOnHand"));
+    
+    public void initTable() {
+        // prepare columns in table
+        lowInvColProdUID.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        lowInvColProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        lowInvColProdCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        lowInvColProdPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        lowInvColProdQty.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+
+
     }
     
     @FXML
     public void setLowStockStage(Stage lowStockStage){
         this.lowStockStage = lowStockStage;
-        System.out.println("set stage done");
+        initTable();
         
-        
-        System.out.println("trying to set items");
         try {
             lowInvView.setItems(getLowProducts());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        System.out.println("finishing set items");
     }
     
-    @FXML
+    
     public ObservableList<Product> getLowProducts() throws SQLException {
         // setup observable list
         ObservableList<Product> lowStockProducts = FXCollections.observableArrayList();

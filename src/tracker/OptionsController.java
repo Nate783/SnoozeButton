@@ -10,15 +10,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -59,12 +63,105 @@ public class OptionsController implements Initializable {
     
     @FXML
     private void onSecSave(ActionEvent event) {
-        // load the binary file and check the current PIN
-        // also validate the new PINS match
-        // if all valid, try to change the PIN
+        int oldPin, intNewPin;
+        Boolean match,valid,unique;
         
-        // if not all valid, provide non-leaky error
+        //initialize variables
+        match = false;
+        valid = false;
+        unique = false;
+        oldPin = 1;
+        intNewPin = 1;
         
+        // first, check that the pin is valid
+        if (newPin1.getText().matches("^\\d{4,8}$")) {
+            valid = true;
+        }
+
+        //now check that the two new pins match
+        // if so, set the new PIN variable
+        if (valid && Objects.equals(newPin1.getText(), newPin2.getText())) {
+            intNewPin = Integer.parseInt(newPin1.getText());
+            match = true;
+        }
+        
+        // If valid and a match, now check that the new PIN is not the same as the old one
+        if (match && valid) {
+            
+            // open the security properties file
+            // define variables for later use
+            Properties prop = new Properties();
+            InputStream input = null;
+            
+            // wrap file read in a try-catch
+            try {
+                // initialize the variable
+		input = new FileInputStream("pin.config.properties");
+
+		// load a properties file
+		prop.load(input);
+
+		// get the property value and fill in the text fields
+		oldPin = Integer.parseInt(prop.getProperty("secret"));
+                if (!Objects.equals(oldPin, intNewPin)) {
+                    unique = true;
+                }
+		
+            } catch (IOException ex) {
+		ex.printStackTrace();
+            } finally {
+		if (input != null) {
+                    try {
+			input.close();
+                    } catch (IOException e) {
+			e.printStackTrace();
+                    }
+		}
+            }            
+        }
+        
+        // if all tests pass, set the new PIN 
+        if (match && unique && valid) {
+            Properties prop = new Properties();
+            OutputStream output = null;
+            try {
+                // initialize output variable
+		output = new FileOutputStream("pin.config.properties");
+
+		// set the properties value
+		prop.setProperty("secret", String.valueOf(intNewPin) );
+		
+
+		// save properties to project root folder
+		prop.store(output, null);
+                output.close();
+                output = null;
+                
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("New PIN Saved");
+                alert.setHeaderText(null);
+                alert.setContentText("Your changes have been saved. This Window will now close. ");
+                alert.showAndWait();
+                ((Node)(event.getSource())).getScene().getWindow().hide();
+                
+            } catch (IOException io) {
+		io.printStackTrace();
+            } 
+            
+        } else {
+            // if not all valid, provide non-leaky error
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Entry");
+            alert.setHeaderText(null);
+            alert.setContentText("There is a problem with your entry. At least one of the following has failed:\n"
+                    + "1. The new PINs did not match.\n"
+                    + "2. The current PIN was incorrect.\n"
+                    + "3. The new PIN was the same as the old PIN.\n"
+                    + "4. Your new PIN was not 4-8 numbers. ");
+
+            alert.showAndWait();
+            
+        }
     }
 
    
@@ -131,8 +228,20 @@ public class OptionsController implements Initializable {
     @FXML
     private void onConnCancel(ActionEvent event) {
         // warn user that all changes will be discarded
-        
-        // if okay, close window
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to discard your changes?\n"
+                + "\nClick OK to Cancel your edits.\n"
+                + "Click Cancel to return to the options window.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
+            // if okay, close window
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+        }
+    
     }
 
     @FXML
