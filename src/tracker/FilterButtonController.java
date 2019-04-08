@@ -96,16 +96,20 @@ public class FilterButtonController implements Initializable {
         //input validation
         
         //Detect filters and set the sql statement to match selected filters  
-        String temp;
+        String temp, P1, P2, P3;
         switch(filterCount){
             case 0:
                 //sql statement (display all)
             Tracker.sqlStatement = "SELECT * FROM products";
             case 1: 
                 //input validation
-                 if (FilterText1.getText().matches("[A-Za-z\\s]*$")){
+                 if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")){
                 //sql statement
-            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'%"+FilterText1.getText()+"%\'";
+                if(FilterBox1.getValue().equals("Name"))
+            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" '%"+FilterText1.getText()+"%\'";
+                else{
+            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" "+FilterText1.getText();                    
+                }
             Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
                 break;
                  }
@@ -119,10 +123,22 @@ public class FilterButtonController implements Initializable {
                  }
             case 2:
                 //input validation
-                if (FilterText1.getText().matches("[A-Za-z\\s]*$")&&FilterText2.getText().matches("^[a-zA-Z0-9. ]*$")){
+                
+                if (FilterText1.getText().matches("[A-Za-z0-9\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9\\s]*$")){
                 //sql statement
-            temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'"+"%\""+FilterText1.getText()+"%\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'"+"%\""+FilterText2.getText()+"%\'";
-            Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
+                //set first part of string
+                if(FilterBox1.getValue().equals("Name"))
+                    P1 = FilterBox1.getValue()+" "+ModifierBox1.getValue()+" '%"+FilterText1.getText()+"%'";
+                else{
+                    P1 = FilterBox1.getValue()+" "+ModifierBox1.getValue()+" "+FilterText1.getText();
+                }
+                if(FilterBox2.getValue().equals("Name"))
+                    P2 = FilterBox2.getValue()+" "+ModifierBox2.getValue()+" '%"+FilterText2.getText()+"%'";
+                else{
+                    P2 = FilterBox2.getValue()+" "+ModifierBox2.getValue()+" "+FilterText2.getText();
+                }   
+                temp = "SELECT * FROM products WHERE "+P1+" "+AndOr1.getValue()+" "+P2;
+                Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
             break;
                 }
                  else{
@@ -135,12 +151,31 @@ public class FilterButtonController implements Initializable {
                  }            
             case 3: 
                 //input validation
-                if (FilterText1.getText().matches("[A-Za-z\\s]*$")&&FilterText2.getText().matches("^[a-zA-Z0-9. ]*$")&&FilterText3.getText().matches("^[a-zA-Z0-9. ]*$")){
+                if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9\\s]*$")&&FilterText3.getText().matches("[A-Za-z0-9\\s]*$")){
                 //sql statement
-                temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" \'%"+FilterText1.getText()+"%\' "+AndOr1.getValue()+" "+FilterBox2.getValue()+" "+ModifierBox2.getValue()+" \'%"+FilterText2.getText()+"%\' "+AndOr2.getValue()+" "+FilterBox3.getValue()+" "+ModifierBox3.getValue()+" \'%"+FilterText3.getText()+"%\'";
+                if (FilterText1.getText().matches("[A-Za-z0-9\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9\\s]*$")){
+                //set first part of string
+                if(FilterBox1.getValue().equals("Name"))
+                    P1 = FilterBox1.getValue()+" "+ModifierBox1.getValue()+" '%"+FilterText1.getText()+"%'";
+                else{
+                    P1 = FilterBox1.getValue()+" "+ModifierBox1.getValue()+" "+FilterText1.getText();
+                }
+                if(FilterBox2.getValue().equals("Name"))
+                    P2 = FilterBox2.getValue()+" "+ModifierBox2.getValue()+" '%"+FilterText2.getText()+"%'";
+                else{
+                    P2 = FilterBox2.getValue()+" "+ModifierBox2.getValue()+" "+FilterText2.getText();
+                }   
+                if(FilterBox3.getValue().equals("Name"))
+                    P3 = FilterBox3.getValue()+" "+ModifierBox3.getValue()+" '%"+FilterText3.getText()+"%'";
+                else{
+                    P3 = FilterBox3.getValue()+" "+ModifierBox3.getValue()+" "+FilterText3.getText();
+                }   
+                
+                temp = "SELECT * FROM products WHERE "+P1+" "+AndOr1.getValue()+" "+P2+" "+AndOr2.getValue()+" "+P3;
                 Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
                 break;
             }
+                }
                  else{
                      Alert alert = new Alert(AlertType.ERROR);
                      alert.setTitle("Filter Error");
@@ -149,7 +184,8 @@ public class FilterButtonController implements Initializable {
                      alert.showAndWait();
                      break;
                  } 
-        }
+        
+    }
         addStage.close();
     }
     public void handleAdd1(){
