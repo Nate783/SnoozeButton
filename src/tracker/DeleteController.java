@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -52,34 +53,40 @@ public class DeleteController {
         Statement statement = null;
         int q  = 0;
         
-        try{
-            // connect to the DB
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
-           
-           
-            // create the sql statement and execute it
-            statement = conn.createStatement();
-            q = statement.executeUpdate("DELETE FROM tracker.products WHERE ID = " +  selectedProduct.getId());
-           
-        }
-        catch(Exception e){
-            System.err.println(e.getMessage());
-        }
-        finally {
-            // clean up
-            if(conn!= null){
-                conn.close();
+        // first, prompt for and check the PIN. 
+        if (Tracker.checkPIN()) {
+            try{
+                // connect to the DB
+                conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+
+
+                // create the sql statement and execute it
+                statement = conn.createStatement();
+                q = statement.executeUpdate("DELETE FROM tracker.products WHERE ID = " +  selectedProduct.getId());
+
             }
-            if(statement != null){
-                statement.close();
+            catch(Exception e){
+                System.err.println(e.getMessage());
             }
-            if(q!= 0){
-                q= 0;
-            }  
+            finally {
+                // clean up
+                if(conn!= null){
+                    conn.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(q!= 0){
+                    q= 0;
+                }  
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Entry");
+            alert.setHeaderText(null);
+            alert.setContentText("You have an entered an incorrect PIN. \n This window will now close.");
+            alert.showAndWait();
         }
-        System.out.println(selectedProduct.getId());
-        
-        
         
         // after deleting the item, now you need to close the window.
         DelStage.close();
@@ -102,4 +109,5 @@ public class DeleteController {
        this.DelStage = delStage;
        
     }
+    
 }

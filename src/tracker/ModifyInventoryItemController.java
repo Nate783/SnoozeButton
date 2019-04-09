@@ -98,11 +98,18 @@ public class ModifyInventoryItemController implements Initializable {
         //Creating the object and filling it with the necessary items
         if(nameValid && costValid && priceValid && qtyValid){
         Product modified = new Product(uid, name, cost, price, qty);
-        Tracker.saveProdToDatabase(modified);
-
         
-        // after modifying the item, now you need to close the window.
-        modifyStage.close();
+        //check that changes are authorized...
+        if (Tracker.checkPIN()) {
+            Tracker.saveProdToDatabase(modified);
+            modifyStage.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Entry");
+            alert.setHeaderText(null);
+            alert.setContentText("You have an entered an incorrect PIN. \n This window will now close.");
+            alert.showAndWait();
+        }
     }
         else{
             Alert alert = new Alert(AlertType.ERROR);

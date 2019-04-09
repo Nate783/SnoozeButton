@@ -164,8 +164,6 @@ public class OptionsController implements Initializable {
         }
     }
 
-   
-
     @FXML
     private void onConnSave(ActionEvent event) {
         // validate format of hostname

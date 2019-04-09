@@ -4,16 +4,26 @@
  */
 package tracker;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Properties;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -163,6 +173,146 @@ public class Tracker extends Application {
             }
     }
     
- 
+    public static boolean checkPIN() {
+        boolean valid = false;
+        int providedPin = 1;
+        
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Authorization Required");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Please enter your manager PIN:");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            providedPin = Integer.parseInt(result.get());
+        }
+        
+        // open the security properties file
+        // define variables for later use
+        Properties prop = new Properties();
+        InputStream input = null;
+            
+        // wrap file read in a try-catch
+        try {
+            // initialize the variable
+            input = new FileInputStream("pin.config.properties");
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property value and fill in the text fields
+            if (Objects.equals(Integer.parseInt(prop.getProperty("secret")), providedPin)) {
+                valid = true;
+            } 
+            
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return valid;
+    }
+    
+    public static String getDBhost() {
+        Properties prop = new Properties();
+        InputStream input = null;
+        String host = null;
+
+        // wrap file read in a try-catch
+        try {
+            // initialize the variable
+            input = new FileInputStream("sql.config.properties");
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property value and fill in the variable
+            host = prop.getProperty("server");
+            
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } 
+        return host;
+    }
+    
+    public static String getDBuser() {
+        Properties prop = new Properties();
+        InputStream input = null;
+        String user = null;
+
+        // wrap file read in a try-catch
+        try {
+            // initialize the variable
+            input = new FileInputStream("sql.config.properties");
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property value and fill in the variable
+            user = prop.getProperty("dbuser");
+            
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } 
+        return user;
+    }
+    
+    public static String getDBpass() {
+        Properties prop = new Properties();
+        InputStream input = null;
+        String pass = null;
+
+        // wrap file read in a try-catch
+        try {
+            // initialize the variable
+            input = new FileInputStream("sql.config.properties");
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property value and fill in the variable
+            pass = prop.getProperty("dbpassword");
+            
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } 
+        return pass;
+    }
 }
 
