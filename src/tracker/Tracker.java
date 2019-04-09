@@ -70,7 +70,7 @@ public class Tracker extends Application {
         
         try{
             // connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+            conn = DriverManager.getConnection("jdbc:mysql://" + getDBhost(), getDBuser(), getDBpass());
             
             // create statement and execute it
             statement = conn.createStatement();
@@ -109,7 +109,7 @@ public class Tracker extends Application {
         
         try{
             //1.  connect to the DB
-            c2 = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+            c2 = DriverManager.getConnection("jdbc:mysql://" + getDBhost(), getDBuser(), getDBpass());
 
             //2.  create a String that holds our SQL update command with ? for user inputs
             String sql = "UPDATE tracker.products SET Name = ?, Cost = ?, Price =?, Quantity = ? WHERE ID = " + p.getId() ;
@@ -144,7 +144,7 @@ public class Tracker extends Application {
         
             try{
                 //1.  connect to the DB
-                c3 = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+                c3 = DriverManager.getConnection("jdbc:mysql://" + getDBhost(), getDBuser(), getDBpass());
 
                 //2.  create a String that holds our SQL update command with ? for user inputs
                 String sql = "INSERT INTO tracker.products (ID, `Name`, Cost, Price, Quantity) VALUES (?, ?, ?, ?, ?);";

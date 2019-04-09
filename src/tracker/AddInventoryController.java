@@ -4,18 +4,14 @@
  */
 package tracker;
 
-import static java.awt.SystemColor.text;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
@@ -69,7 +65,6 @@ public class AddInventoryController {
                 if (isNumeric(pCost) && pri > cos && pCost != null && pCost.trim().length() > 0) {
                     costValid = true;
                     costError = "";
-                    System.out.print(pCost.length());
                 } else {
                     costValid = false;
                     costError = "Cost must be less than price and not negative.";
@@ -139,7 +134,7 @@ public class AddInventoryController {
 
         try {
             // connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+            conn = DriverManager.getConnection("jdbc:mysql://" + Tracker.getDBhost(), Tracker.getDBuser(), Tracker.getDBpass());
 
             // create statement and execute it
             statement = conn.createStatement();

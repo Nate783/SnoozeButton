@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tracker.Product;
+
 /**
  *
  * @author Wakhiel
@@ -57,7 +58,7 @@ public class DeleteController {
         if (Tracker.checkPIN()) {
             try{
                 // connect to the DB
-                conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+                conn = DriverManager.getConnection("jdbc:mysql://" + Tracker.getDBhost(), Tracker.getDBuser(), Tracker.getDBpass());
 
 
                 // create the sql statement and execute it

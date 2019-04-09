@@ -285,7 +285,7 @@ public class FXMLDocumentController implements Initializable {
 
         try {
             // connect to the DB
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+            conn = DriverManager.getConnection("jdbc:mysql://" + Tracker.getDBhost(), Tracker.getDBuser(), Tracker.getDBpass());
 
             // create the sql statement and execute it
             statement = conn.createStatement();
@@ -328,7 +328,7 @@ public class FXMLDocumentController implements Initializable {
         ResultSet resultSet = null;
         try {
             // connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+            conn = DriverManager.getConnection("jdbc:mysql://" + Tracker.getDBhost(), Tracker.getDBuser(), Tracker.getDBpass());
 
             // create statement and execute it
             statement = conn.createStatement();
@@ -364,7 +364,7 @@ public class FXMLDocumentController implements Initializable {
         ResultSet resultSet = null;
         try {
             // connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+            conn = DriverManager.getConnection("jdbc:mysql://" + Tracker.getDBhost(), Tracker.getDBuser(), Tracker.getDBpass());
 
             // create statement and execute it
             statement = conn.createStatement();
@@ -401,7 +401,7 @@ public class FXMLDocumentController implements Initializable {
         ResultSet resultSet = null;
         try {
             // connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+            conn = DriverManager.getConnection("jdbc:mysql://" + Tracker.getDBhost(), Tracker.getDBuser(), Tracker.getDBpass());
 
             // create statement and execute it
             statement = conn.createStatement();
@@ -436,7 +436,7 @@ public class FXMLDocumentController implements Initializable {
         ResultSet resultSet = null;
         try {
             // connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://157.230.232.127:3306/tracker?zeroDateTimeBehavior=convertToNull", "tracker", "TGhcVxRXf4uVDG");
+            conn = DriverManager.getConnection("jdbc:mysql://" + Tracker.getDBhost(), Tracker.getDBuser(), Tracker.getDBpass());
 
             // create statement and execute it to find out which items have less than 5 in stock 
             statement = conn.createStatement();
