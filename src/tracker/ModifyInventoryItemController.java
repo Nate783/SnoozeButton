@@ -65,32 +65,41 @@ public class ModifyInventoryItemController implements Initializable {
         }
         
         sCost = txtCost.getText();
-        String errorMessage = "Please, enter a valid ";
+        //Erorr Message
+        String errorMessage = "Looks like a few fields need to be corrected \nProduct name must consist of characters A-Z \nCost must be less than price and not negative. \nSales price must be greater than cost and not negative \nQuantity must be greater than 0";
+        //Checks if cost input is numeric, and sets to int variable
         if(isNumeric(sCost)){
         cost = Double.parseDouble(txtCost.getText());
-        costValid = true;
         }
-        else{
-            errorMessage += " cost ";
-            costValid = false;
-        }
-        
+        //Checks if price input is numeric, and sets to int variable
         sPrice = txtPrice.getText();
         if(isNumeric(sPrice)){
         price = Double.parseDouble(txtPrice.getText());
-        priceValid = true;
         }
-        else{
-            errorMessage += "price ";
-            priceValid = false; 
-        }
+        //Checks if quantity input is numeric, and sets to int variable
         sQty = txtQty.getText();
         if(isInteger(sQty)){
         qty = Integer.parseInt(txtQty.getText());
+        }
+        //Checks if cost is valid
+        if(cost >= 0 && cost < price){
+            costValid = true;
+        }
+        else {
+            costValid = false;
+        }
+        //Checks if price is valid
+        if(price >= 0 && price > cost){
+        priceValid = true;
+        }
+        else{
+            priceValid = false; 
+        }
+        //Checks if quantity is valid
+        if(qty >= 0){
         qtyValid = true;
         }
         else{
-            errorMessage += "quantity ";
             qtyValid = false;
         }
         
