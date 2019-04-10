@@ -57,7 +57,7 @@ public class ModifyInventoryItemController implements Initializable {
         
         uid = Integer.parseInt(txtID.getText()); 
         name = txtName.getText();
-        if(name.matches("^[a-zA-Z]*$")){
+        if(name.matches("^[a-zA-Z ]*$")){
             nameValid = true;
         }
         else{
