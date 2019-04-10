@@ -56,8 +56,9 @@ public class ModifyInventoryItemController implements Initializable {
         boolean nameValid, costValid, priceValid, qtyValid;
         
         uid = Integer.parseInt(txtID.getText()); 
-        name = txtName.getText();
-        if(name.matches("^[a-zA-Z ]*$")){
+        String name1 = txtName.getText();
+        name = name1.trim();
+        if(name.matches("^[a-zA-Z ]*$") && name.isEmpty() == false){
             nameValid = true;
         }
         else{
