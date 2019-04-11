@@ -220,6 +220,7 @@ public class OptionsController implements Initializable {
         
         // after saving, clear the password field back out
         sqlPass.setText("");
+        optionsStage.close();
         
     }
 
