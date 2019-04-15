@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tracker.FilterButtonController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tracker.FilterButtonController">
   <children>
-    <GridPane layoutX="90.0" layoutY="90.0" maxHeight="-1.0">
+    <GridPane layoutX="70.0" layoutY="155.0" maxHeight="-1.0">
       <children>
-        <ComboBox fx:id="FilterBox1" prefHeight="21.0" prefWidth="79.0" promptText="Filter" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+        <ComboBox fx:id="FilterBox1" prefHeight="21.0" prefWidth="79.0" promptText="Filter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Name" />
@@ -24,7 +21,7 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <ComboBox fx:id="ModifierBox1" prefHeight="21.0" prefWidth="79.0" promptText="Modifier" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+        <ComboBox fx:id="ModifierBox1" prefHeight="21.0" prefWidth="79.0" promptText="Modifier" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="&gt;" />
@@ -34,8 +31,8 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <TextField fx:id="FilterText1" prefWidth="200.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-        <ComboBox fx:id="FilterBox2" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Filter 2" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <TextField fx:id="FilterText1" prefWidth="200.0" text="" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+        <ComboBox fx:id="FilterBox2" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Filter 2" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Name" />
@@ -45,7 +42,7 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <ComboBox fx:id="ModifierBox2" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Modifier 2" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <ComboBox fx:id="ModifierBox2" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Modifier 2" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="&gt;" />
@@ -55,8 +52,8 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <TextField fx:id="FilterText2" disable="true" prefWidth="200.0" text="" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <ComboBox fx:id="FilterBox3" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Filter 3" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+        <TextField fx:id="FilterText2" disable="true" prefWidth="200.0" text="" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <ComboBox fx:id="FilterBox3" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Filter 3" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Name" />
@@ -66,7 +63,7 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <ComboBox fx:id="ModifierBox3" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Modifier 3" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+        <ComboBox fx:id="ModifierBox3" disable="true" prefHeight="21.0" prefWidth="79.0" promptText="Modifier 3" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="&gt;" />
@@ -76,14 +73,31 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <TextField fx:id="FilterText3" disable="true" prefWidth="200.0" text="" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <Button fx:id="Add1" contentDisplay="LEFT" mnemonicParsing="false" onAction="#handleAdd1" text="+" textAlignment="LEFT" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-        <Button fx:id="Add2" disable="true" mnemonicParsing="false" onAction="#handleAdd2" text="+" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <Button fx:id="ApplyButton" mnemonicParsing="false" onAction="#handleApplyButton" text="Apply" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-        <Button fx:id="ResetButton" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <TextField fx:id="FilterText3" disable="true" prefWidth="200.0" text="" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        <Button fx:id="Add1" contentDisplay="LEFT" mnemonicParsing="false" onAction="#handleAdd1" text="+" textAlignment="LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+        <Button fx:id="Add2" disable="true" mnemonicParsing="false" onAction="#handleAdd2" text="+" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <Button fx:id="ApplyButton" mnemonicParsing="false" onAction="#handleApplyButton" text="Apply" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <ComboBox fx:id="AndOr1" disable="true" promptText="And/Or" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="AND" />
+              <String fx:value="OR" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <ComboBox fx:id="AndOr2" disable="true" promptText="And/Or" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="AND" />
+              <String fx:value="OR" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <Button fx:id="ResetButton" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
       </children>
       <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

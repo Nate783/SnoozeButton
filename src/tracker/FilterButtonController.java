@@ -86,6 +86,8 @@ public class FilterButtonController implements Initializable {
         FilterText2.setDisable(true);
         FilterText3.setDisable(true);
         filterCount=0;
+        Add2.setVisible(false);
+        Add2.setDisable(true);
         
         
     }
@@ -103,13 +105,14 @@ public class FilterButtonController implements Initializable {
             Tracker.sqlStatement = "SELECT * FROM products";
             case 1: 
                 //input validation
-                 if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")){
+                 if (FilterText1.getText().matches("[-A-Za-z0-9.\\s]*$")){
                 //sql statement
                 if(FilterBox1.getValue().equals("Name"))
             temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" '%"+FilterText1.getText()+"%\'";
                 else{
             temp="SELECT * FROM products WHERE "+FilterBox1.getValue()+" "+ModifierBox1.getValue()+" "+FilterText1.getText();                    
                 }
+                temp=temp.replaceAll("Item Price","price");
             Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
                 break;
                  }
@@ -124,7 +127,7 @@ public class FilterButtonController implements Initializable {
             case 2:
                 //input validation
                 
-                if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9.\\s]*$")){
+                if (FilterText1.getText().matches("[-A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[-A-Za-z0-9.\\s]*$")){
                 //sql statement
                 //set first part of string
                 if(FilterBox1.getValue().equals("Name"))
@@ -137,6 +140,8 @@ public class FilterButtonController implements Initializable {
                 else{
                     P2 = FilterBox2.getValue()+" "+ModifierBox2.getValue()+" "+FilterText2.getText();
                 }   
+                P1=P1.replaceAll("Item Price", "price");
+                P2=P2.replaceAll("Item Price", "price");
                 temp = "SELECT * FROM products WHERE "+P1+" "+AndOr1.getValue()+" "+P2;
                 Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
             break;
@@ -151,9 +156,9 @@ public class FilterButtonController implements Initializable {
                  }            
             case 3: 
                 //input validation
-                if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText3.getText().matches("[A-Za-z0-9.\\s]*$")){
+                if (FilterText1.getText().matches("[-A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[-A-Za-z0-9.\\s]*$")&&FilterText3.getText().matches("[-A-Za-z0-9.\\s]*$")){
                 //sql statement
-                if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9.\\s]*$")){
+                if (FilterText1.getText().matches("[-A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[-A-Za-z0-9.\\s]*$")){
                 //set first part of string
                 if(FilterBox1.getValue().equals("Name"))
                     P1 = FilterBox1.getValue()+" "+ModifierBox1.getValue()+" '%"+FilterText1.getText()+"%'";
@@ -170,7 +175,9 @@ public class FilterButtonController implements Initializable {
                 else{
                     P3 = FilterBox3.getValue()+" "+ModifierBox3.getValue()+" "+FilterText3.getText();
                 }   
-                
+                P1=P1.replaceAll("Item Price", "price");
+                P2=P2.replaceAll("Item Price", "price");
+                P3=P3.replaceAll("Item Price", "price");
                 temp = "SELECT * FROM products WHERE "+P1+" "+AndOr1.getValue()+" "+P2+" "+AndOr2.getValue()+" "+P3;
                 Tracker.sqlStatement=temp.replaceAll("Contains", "LIKE");
                 break;
