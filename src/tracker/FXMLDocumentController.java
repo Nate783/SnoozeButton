@@ -468,7 +468,7 @@ public class FXMLDocumentController implements Initializable {
     private void handleLowStockClick() {
         Tracker.sqlStatement= "SELECT * FROM products WHERE Quantity < 5";
         invBtnFiltersReset.setVisible(true);
-        //TabPane.getSelectionModel().select(tabInventory);
+        tabPane.getSelectionModel().select(tabInventory);
     }
 
     @FXML
