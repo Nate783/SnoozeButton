@@ -14,8 +14,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,12 +40,14 @@ import java.text.DecimalFormat;
 import javafx.application.Platform;
 import javafx.scene.text.Font;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 
 public class FXMLDocumentController implements Initializable {
 
     @FXML
     private Button invBtnAddToInventory, invBtnModify, invBtnDelete, invBtnFilters;
-
+    @FXML
+    private TabPane tabPane;
     @FXML
     private TableView<Product> invTable;
     @FXML
@@ -466,28 +466,9 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleLowStockClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Tracker.class.getResource("LowStockView.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            Stage lowStockStage = new Stage();
-            lowStockStage.setTitle("Low Stock Items");
-            lowStockStage.initModality(Modality.WINDOW_MODAL);
-            Window primaryStage = null;
-            lowStockStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            lowStockStage.setScene(scene);
-
-            LowStockViewController controller;
-            controller = loader.getController();
-            controller.setLowStockStage(lowStockStage);
-
-            lowStockStage.showAndWait();
-
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+        Tracker.sqlStatement= "SELECT * FROM products WHERE Quantity < 5";
+        invBtnFiltersReset.setVisible(true);
+        //TabPane.getSelectionModel().select(tabInventory);
     }
 
     @FXML

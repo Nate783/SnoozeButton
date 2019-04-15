@@ -124,7 +124,7 @@ public class FilterButtonController implements Initializable {
             case 2:
                 //input validation
                 
-                if (FilterText1.getText().matches("[A-Za-z0-9\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9\\s]*$")){
+                if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9.\\s]*$")){
                 //sql statement
                 //set first part of string
                 if(FilterBox1.getValue().equals("Name"))
@@ -151,9 +151,9 @@ public class FilterButtonController implements Initializable {
                  }            
             case 3: 
                 //input validation
-                if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9\\s]*$")&&FilterText3.getText().matches("[A-Za-z0-9\\s]*$")){
+                if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText3.getText().matches("[A-Za-z0-9.\\s]*$")){
                 //sql statement
-                if (FilterText1.getText().matches("[A-Za-z0-9\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9\\s]*$")){
+                if (FilterText1.getText().matches("[A-Za-z0-9.\\s]*$")&&FilterText2.getText().matches("[A-Za-z0-9.\\s]*$")){
                 //set first part of string
                 if(FilterBox1.getValue().equals("Name"))
                     P1 = FilterBox1.getValue()+" "+ModifierBox1.getValue()+" '%"+FilterText1.getText()+"%'";
