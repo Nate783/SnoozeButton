@@ -58,7 +58,7 @@ public class ModifyInventoryItemController implements Initializable {
         uid = Integer.parseInt(txtID.getText()); 
         String name1 = txtName.getText();
         name = name1.trim();
-        if(name.matches("^[a-zA-Z ]*$") && name.isEmpty() == false){
+        if(name.matches("^[a-zA-Z -]*$") && name.isEmpty() == false){
             nameValid = true;
         }
         else{
@@ -83,21 +83,21 @@ public class ModifyInventoryItemController implements Initializable {
         qty = Integer.parseInt(txtQty.getText());
         }
         //Checks if cost is valid
-        if(cost >= 0 && cost < price){
+        if(cost >= 0 && cost < price && isNumeric(sCost)){
             costValid = true;
         }
         else {
             costValid = false;
         }
         //Checks if price is valid
-        if(price >= 0 && price > cost){
+        if(price >= 0 && price > cost && isNumeric(sPrice)){
         priceValid = true;
         }
         else{
             priceValid = false; 
         }
         //Checks if quantity is valid
-        if(qty >= 0){
+        if(qty >= 0 && isInteger(sQty)){
         qtyValid = true;
         }
         else{
