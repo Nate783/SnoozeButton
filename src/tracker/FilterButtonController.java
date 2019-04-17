@@ -56,6 +56,7 @@ public class FilterButtonController implements Initializable {
     public void setFilterStage(Stage filterStage){
         this.addStage = filterStage;
     }
+    @FXML
     public void handleResetButton(){
         //empty all boxes and text fields
         ModifierBox3.setValue(null);
@@ -91,9 +92,11 @@ public class FilterButtonController implements Initializable {
         
         
     }
+    @FXML
     public void handleCancelButton(){
         addStage.close();
     }
+    @FXML
     public void handleApplyButton()throws SQLException{
         //input validation
         
@@ -195,6 +198,7 @@ public class FilterButtonController implements Initializable {
     }
         addStage.close();
     }
+    @FXML
     public void handleAdd1(){
         //adds the second line of filters and ensures the correct amount of filters
         FilterBox2.setVisible(true);
@@ -211,6 +215,7 @@ public class FilterButtonController implements Initializable {
         AndOr1.setDisable(false);
         filterCount=2;
     }
+    @FXML
     public void handleAdd2(){
         //adds the third line of filters and ensures the correct amount of filters
         FilterBox3.setVisible(true);
