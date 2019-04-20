@@ -37,7 +37,9 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import static tracker.Tracker.*;
 import java.text.DecimalFormat;
+import java.util.Optional;
 import javafx.application.Platform;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Font;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
@@ -466,10 +468,20 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleLowStockClick() throws SQLException {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Switch Tabs");
+        alert.setHeaderText("Switching to low stock view");
+        alert.setContentText("Are you sure you want to view low stock items?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
         Tracker.sqlStatement= "SELECT * FROM products WHERE Quantity < 5";
         invTable.setItems(getProducts());
         invBtnFiltersReset.setVisible(true);
         tabPane.getSelectionModel().select(tabInventory);
+        } else {
+    
+    }
     }
 
     @FXML
